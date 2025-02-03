@@ -363,7 +363,7 @@
                     <div class="single-featured-cars">
                         <div class="featured-img-box">
                             <div class="featured-cars-img">
-                                <img src="assets/images/featured-cars/fc1.png" alt="cars" />
+                                <img src="wp-content\themes\cartheme\assets/images/featured-cars/fc1.png" alt="cars" />
                             </div>
                             <div class="featured-model-info">
                                 <p>
@@ -388,7 +388,7 @@
                     <div class="single-featured-cars">
                         <div class="featured-img-box">
                             <div class="featured-cars-img">
-                                <img src="assets/images/featured-cars/fc2.png" alt="cars" />
+                                <img src="wp-content\themes\cartheme\assets/images/featured-cars/fc2.png" alt="cars" />
                             </div>
                             <div class="featured-model-info">
                                 <p>
@@ -415,7 +415,7 @@
                     <div class="single-featured-cars">
                         <div class="featured-img-box">
                             <div class="featured-cars-img">
-                                <img src="assets/images/featured-cars/fc3.png" alt="cars" />
+                                <img src="wp-content\themes\cartheme\assets/images/featured-cars/fc3.png" alt="cars" />
                             </div>
                             <div class="featured-model-info">
                                 <p>
@@ -442,7 +442,7 @@
                     <div class="single-featured-cars">
                         <div class="featured-img-box">
                             <div class="featured-cars-img">
-                                <img src="assets/images/featured-cars/fc4.png" alt="cars" />
+                                <img src="wp-content\themes\cartheme\assets/images/featured-cars/fc4.png" alt="cars" />
                             </div>
                             <div class="featured-model-info">
                                 <p>
@@ -471,7 +471,7 @@
                     <div class="single-featured-cars">
                         <div class="featured-img-box">
                             <div class="featured-cars-img">
-                                <img src="assets/images/featured-cars/fc4.png" alt="cars" />
+                                <img src="wp-content\themes\cartheme\assets/images/featured-cars/fc4.png" alt="cars" />
                             </div>
                             <div class="featured-model-info">
                                 <p>
@@ -498,7 +498,7 @@
                     <div class="single-featured-cars">
                         <div class="featured-img-box">
                             <div class="featured-cars-img">
-                                <img src="assets/images/featured-cars/fc5.png" alt="cars" />
+                                <img src="wp-content\themes\cartheme\assets/images/featured-cars/fc5.png" alt="cars" />
                             </div>
                             <div class="featured-model-info">
                                 <p>
@@ -525,7 +525,7 @@
                     <div class="single-featured-cars">
                         <div class="featured-img-box">
                             <div class="featured-cars-img">
-                                <img src="assets/images/featured-cars/fc7.png" alt="cars" />
+                                <img src="wp-content\themes\cartheme\assets/images/featured-cars/fc7.png" alt="cars" />
                             </div>
                             <div class="featured-model-info">
                                 <p>
@@ -552,7 +552,7 @@
                     <div class="single-featured-cars">
                         <div class="featured-img-box">
                             <div class="featured-cars-img">
-                                <img src="assets/images/featured-cars/fc8.png" alt="cars" />
+                                <img src="wp-content\themes\cartheme\assets/images/featured-cars/fc8.png" alt="cars" />
                             </div>
                             <div class="featured-model-info">
                                 <p>
