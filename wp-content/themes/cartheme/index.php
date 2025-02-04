@@ -214,6 +214,19 @@
         </div>
         <!--/.section-header-->
         <div class="new-cars-content">
+
+        <?php
+        $args = array(
+            'post_type' => 'new_car',
+            'posts_per_page' => 1,
+        );
+        $new_cars = new WP_Query($args);
+        if ($featured_cars->have_posts()) :
+            $posts = $featured_cars->posts;
+            
+
+
+        ?>
             <div class="owl-carousel owl-theme" id="new-cars-carousel">
                 <div class="new-cars-item">
                     <div class="single-new-cars-item">
@@ -368,12 +381,12 @@
 
             if ($featured_cars->have_posts()) :
                 $posts = $featured_cars->posts;
-                $chunks = array_chunk($posts, 4);
+                $chunks = array_chunk($posts, 4); // Split the posts into chunks of 4
 
                 foreach ($chunks as $chunk) :
                     echo '<div class="row">';
                     foreach ($chunk as $post) :
-                        setup_postdata($post);
+                        setup_postdata($post); // Set up post data
 
                         // Get taxonomy terms
                         $car_year = get_the_terms($post->ID, 'car_year');
