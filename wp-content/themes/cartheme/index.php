@@ -349,239 +349,90 @@
 
 <!-- 
     Custom post type: car -->
-<!--featured-cars start ------------------------------------------------------------------------------------------------------------------------->
+<!--featured-cars start ------------------------------------------------------------------------------------------------------------------------>
+
 <section id="featured-cars" class="featured-cars">
     <div class="container">
         <div class="section-header">
             <p>checkout <span>the</span> featured cars</p>
-            <h2>featured cars </h2>
+            <h2>featured cars</h2>
         </div>
 
-        <!--/.section-header-->
         <div class="featured-cars-content">
-            <div class="row">
-                <div class="col-lg-3 col-md-4 col-sm-6">
-                    <div class="single-featured-cars">
-                        <div class="featured-img-box">
-                            <div class="featured-cars-img">
-                                <img src="wp-content\themes\cartheme\assets/images/featured-cars/fc1.png" alt="cars" />
-                            </div>
-                            <div class="featured-model-info">
+            <?php
+            $args = array(
+                'post_type' => 'featured_car',
+                'posts_per_page' => 8,
+            );
+            $featured_cars = new WP_Query($args);
 
-                                <p>
-                                    model: 2017
-                                    <span class="featured-mi-span"> 3100 mi</span>
-                                    <span class="featured-hp-span"> 240HP</span>
-                                    automatic
-                                </p>
+            if ($featured_cars->have_posts()) :
+                $posts = $featured_cars->posts;
+                $chunks = array_chunk($posts, 4);
+
+                foreach ($chunks as $chunk) :
+                    echo '<div class="row">';
+                    foreach ($chunk as $post) :
+                        setup_postdata($post);
+
+                        // Get taxonomy terms
+                        $car_year = get_the_terms($post->ID, 'car_year');
+                        $car_mileage = get_the_terms($post->ID, 'car_mileage');
+                        $car_hp = get_the_terms($post->ID, 'car_hp');
+                        $car_transmission = get_the_terms($post->ID, 'car_transmission');
+                        $car_price = get_the_terms($post->ID, 'car_price');
+                        $car_model = get_the_terms($post->ID, 'car_model');
+            ?>
+
+                        <div class="col-lg-3 col-md-4 col-sm-6">
+                            <div class="single-featured-cars">
+                                <div class="featured-img-box">
+                                    <div class="featured-cars-img">
+                                        <?php if (has_post_thumbnail()) : ?>
+                                            <img src="<?php echo esc_url(get_the_post_thumbnail_url()); ?>" alt="<?php echo esc_attr(get_the_title()); ?>" />
+                                        <?php endif; ?>
+                                    </div>
+                                    <div class="featured-model-info">
+                                        <p>
+                                            model: <?php echo ($car_year && !is_wp_error($car_model)) ? esc_html($car_model[0]->name) : 'N/A'; ?>
+                                            <span class="featured-mi-span">
+                                                <?php echo ($car_mileage && !is_wp_error($car_mileage)) ? esc_html($car_mileage[0]->name) . ' mi' : ''; ?>
+                                            </span>
+                                            <span class="featured-hp-span">
+                                                <?php echo ($car_hp && !is_wp_error($car_hp)) ? esc_html($car_hp[0]->name) . 'HP' : ''; ?>
+                                            </span>
+                                            <?php echo ($car_transmission && !is_wp_error($car_transmission)) ? esc_html($car_transmission[0]->name) : ''; ?>
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="featured-cars-txt">
+                                    <h2><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></h2>
+                                    <h3>
+                                        <?php
+                                        if ($car_price && !is_wp_error($car_price)) {
+                                            echo '$' . esc_html($car_price[0]->name);
+                                        }
+                                        ?>
+                                    </h3>
+                                    <p><?php the_excerpt(); ?></p>
+                                </div>
                             </div>
                         </div>
-                        <div class="featured-cars-txt">
-                            <h2><a href="">BMW Series 6</a></h2>
-                            <h3>$89,395</h3>
-                            <p>
-                                Neque porro quisquam est, qui dolorem ipsum quia dolor sit
-                                amet, consectetur, adipisci velit, sed quia non.
-                            </p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-md-4 col-sm-6">
-                    <div class="single-featured-cars">
-                        <div class="featured-img-box">
-                            <div class="featured-cars-img">
-                                <img src="wp-content\themes\cartheme\assets/images/featured-cars/fc2.png" alt="cars" />
-                            </div>
-                            <div class="featured-model-info">
-                                <p>
-                                    model: 2017
-                                    <span class="featured-mi-span"> 3100 mi</span>
-                                    <span class="featured-hp-span"> 240HP</span>
-                                    automatic
-                                </p>
-                            </div>
-                        </div>
-                        <div class="featured-cars-txt">
-                            <h2>
-                                <a href="#">chevrolet camaro <span>wmv20</span></a>
-                            </h2>
-                            <h3>$66,575</h3>
-                            <p>
-                                Neque porro quisquam est, qui dolorem ipsum quia dolor sit
-                                amet, consectetur, adipisci velit, sed quia non.
-                            </p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-md-4 col-sm-6">
-                    <div class="single-featured-cars">
-                        <div class="featured-img-box">
-                            <div class="featured-cars-img">
-                                <img src="wp-content\themes\cartheme\assets/images/featured-cars/fc3.png" alt="cars" />
-                            </div>
-                            <div class="featured-model-info">
-                                <p>
-                                    model: 2017
-                                    <span class="featured-mi-span"> 3100 mi</span>
-                                    <span class="featured-hp-span"> 240HP</span>
-                                    automatic
-                                </p>
-                            </div>
-                        </div>
-                        <div class="featured-cars-txt">
-                            <h2>
-                                <a href="#">lamborghini <span>v520</span></a>
-                            </h2>
-                            <h3>$125,250</h3>
-                            <p>
-                                Neque porro quisquam est, qui dolorem ipsum quia dolor sit
-                                amet, consectetur, adipisci velit, sed quia non.
-                            </p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-md-4 col-sm-6">
-                    <div class="single-featured-cars">
-                        <div class="featured-img-box">
-                            <div class="featured-cars-img">
-                                <img src="wp-content\themes\cartheme\assets/images/featured-cars/fc4.png" alt="cars" />
-                            </div>
-                            <div class="featured-model-info">
-                                <p>
-                                    model: 2017
-                                    <span class="featured-mi-span"> 3100 mi</span>
-                                    <span class="featured-hp-span"> 240HP</span>
-                                    automatic
-                                </p>
-                            </div>
-                        </div>
-                        <div class="featured-cars-txt">
-                            <h2>
-                                <a href="#">audi <span> a3</span> sedan</a>
-                            </h2>
-                            <h3>$95,500</h3>
-                            <p>
-                                Neque porro quisquam est, qui dolorem ipsum quia dolor sit
-                                amet, consectetur, adipisci velit, sed quia non.
-                            </p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-lg-3 col-md-4 col-sm-6">
-                    <div class="single-featured-cars">
-                        <div class="featured-img-box">
-                            <div class="featured-cars-img">
-                                <img src="wp-content\themes\cartheme\assets/images/featured-cars/fc4.png" alt="cars" />
-                            </div>
-                            <div class="featured-model-info">
-                                <p>
-                                    model: 2017
-                                    <span class="featured-mi-span"> 3100 mi</span>
-                                    <span class="featured-hp-span"> 240HP</span>
-                                    automatic
-                                </p>
-                            </div>
-                        </div>
-                        <div class="featured-cars-txt">
-                            <h2>
-                                <a href="#">infiniti <span>z5</span></a>
-                            </h2>
-                            <h3>$36,850</h3>
-                            <p>
-                                Neque porro quisquam est, qui dolorem ipsum quia dolor sit
-                                amet, consectetur, adipisci velit, sed quia non.
-                            </p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-md-4 col-sm-6">
-                    <div class="single-featured-cars">
-                        <div class="featured-img-box">
-                            <div class="featured-cars-img">
-                                <img src="wp-content\themes\cartheme\assets/images/featured-cars/fc5.png" alt="cars" />
-                            </div>
-                            <div class="featured-model-info">
-                                <p>
-                                    model: 2017
-                                    <span class="featured-mi-span"> 3100 mi</span>
-                                    <span class="featured-hp-span"> 240HP</span>
-                                    automatic
-                                </p>
-                            </div>
-                        </div>
-                        <div class="featured-cars-txt">
-                            <h2>
-                                <a href="#">porsche <span>718</span> cayman</a>
-                            </h2>
-                            <h3>$48,500</h3>
-                            <p>
-                                Neque porro quisquam est, qui dolorem ipsum quia dolor sit
-                                amet, consectetur, adipisci velit, sed quia non.
-                            </p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-md-4 col-sm-6">
-                    <div class="single-featured-cars">
-                        <div class="featured-img-box">
-                            <div class="featured-cars-img">
-                                <img src="wp-content\themes\cartheme\assets/images/featured-cars/fc7.png" alt="cars" />
-                            </div>
-                            <div class="featured-model-info">
-                                <p>
-                                    model: 2017
-                                    <span class="featured-mi-span"> 3100 mi</span>
-                                    <span class="featured-hp-span"> 240HP</span>
-                                    automatic
-                                </p>
-                            </div>
-                        </div>
-                        <div class="featured-cars-txt">
-                            <h2>
-                                <a href="#"><span>bmw 8-</span>series coupe</a>
-                            </h2>
-                            <h3>$56,000</h3>
-                            <p>
-                                Neque porro quisquam est, qui dolorem ipsum quia dolor sit
-                                amet, consectetur, adipisci velit, sed quia non.
-                            </p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-md-4 col-sm-6">
-                    <div class="single-featured-cars">
-                        <div class="featured-img-box">
-                            <div class="featured-cars-img">
-                                <img src="wp-content\themes\cartheme\assets/images/featured-cars/fc8.png" alt="cars" />
-                            </div>
-                            <div class="featured-model-info">
-                                <p>
-                                    model: 2017
-                                    <span class="featured-mi-span"> 3100 mi</span>
-                                    <span class="featured-hp-span"> 240HP</span>
-                                    automatic
-                                </p>
-                            </div>
-                        </div>
-                        <div class="featured-cars-txt">
-                            <h2>
-                                <a href="#">BMW <span> x</span>series-6</a>
-                            </h2>
-                            <h3>$75,800</h3>
-                            <p>
-                                Neque porro quisquam est, qui dolorem ipsum quia dolor sit
-                                amet, consectetur, adipisci velit, sed quia non.
-                            </p>
-                        </div>
-                    </div>
-                </div>
-            </div>
+
+            <?php
+                    endforeach;
+                    echo '</div>'; // .row
+                endforeach;
+
+                wp_reset_postdata();
+            else :
+                echo '<p>' . __('No featured cars found', 'textdomain') . '</p>';
+            endif;
+            ?>
         </div>
     </div>
-    <!--/.container-->
 </section>
+
 <!--/.featured-cars-->
 <!--featured-cars end -->
 
@@ -755,6 +606,9 @@
 
 <!--blog start -->
 <section id="blog" class="blog"></section>
+
+
+
 <!--/.blog-->
 <!--blog end -->
 
