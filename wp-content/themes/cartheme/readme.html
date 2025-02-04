@@ -1046,3 +1046,11 @@
   </body>
 </html>
 
+
+
+
+<?php $args = array('post_type' => 'featured_car', 'posts_per_page' => 8);
+get_terms('portfolio-skills', array('fields' => 'names'));
+$cars = get_terms(['taxonomy' => 'car_year', 'hide_empty' => false]); // get all the terms in the car_year taxonomy even if they are empty
+print_r($cars);
+?>

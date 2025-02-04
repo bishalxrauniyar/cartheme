@@ -104,12 +104,12 @@
                                     <option value="default">model</option>
                                     <!-- /.option-->
 
-                                    <option value="kia-rio">kia-rio</option>
+                                    <option value="X-series">X series</option>
                                     <!-- /.option-->
 
-                                    <option value="mitsubishi">mitsubishi</option>
+                                    <option value="audi-a3">A3</option>
                                     <!-- /.option-->
-                                    <option value="ford">ford</option>
+                                    <option value="lamborghini">v560</option>
                                     <!-- /.option-->
                                 </select><!-- /.select-->
                             </div>
@@ -354,8 +354,9 @@
     <div class="container">
         <div class="section-header">
             <p>checkout <span>the</span> featured cars</p>
-            <h2>featured cars</h2>
+            <h2>featured cars </h2>
         </div>
+
         <!--/.section-header-->
         <div class="featured-cars-content">
             <div class="row">
@@ -366,6 +367,7 @@
                                 <img src="wp-content\themes\cartheme\assets/images/featured-cars/fc1.png" alt="cars" />
                             </div>
                             <div class="featured-model-info">
+
                                 <p>
                                     model: 2017
                                     <span class="featured-mi-span"> 3100 mi</span>
@@ -375,7 +377,7 @@
                             </div>
                         </div>
                         <div class="featured-cars-txt">
-                            <h2><a href="#">BMW 6-series gran coupe</a></h2>
+                            <h2><a href="">BMW Series 6</a></h2>
                             <h3>$89,395</h3>
                             <p>
                                 Neque porro quisquam est, qui dolorem ipsum quia dolor sit

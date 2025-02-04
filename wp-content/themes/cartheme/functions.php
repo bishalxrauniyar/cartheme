@@ -94,21 +94,57 @@ add_action('init', 'create_featured_cars_cpt');
 function create_featured_cars_taxonomies()
 {
     register_taxonomy(
-        'car_brand',
+        'car_year',
         'featured_car',
         array(
-            'label' => __('Car Brands', 'textdomain'),
-            'rewrite' => array('slug' => 'car-brand'),
-            'hierarchical' => true,
+            'label' => __('Car Year', 'textdomain'),
+            'rewrite' => array('slug' => 'car-year'),
+            'hierarchical' => false,
         )
     );
+
+
 
     register_taxonomy(
         'car_type',
         'featured_car',
         array(
-            'label' => __('Car Types', 'textdomain'),
+            'label' => __('Car Body Type', 'textdomain'),
             'rewrite' => array('slug' => 'car-type'),
+            'hierarchical' => false,
+        )
+    );
+
+
+    register_taxonomy(
+        'car_brand',
+        'featured_car',
+        array(
+            'label' => __('Car Brand', 'textdomain'),
+            'rewrite' => array('slug' => 'car-brand'),
+            'hierarchical' => false,
+        )
+    );
+
+
+    register_taxonomy(
+        'car_condition',
+        'featured_car',
+        array(
+            'label' => __('Car Condition', 'textdomain'),
+            'rewrite' => array('slug' => 'car-condition'),
+            'hierarchical' => false,
+        )
+    );
+
+
+
+    register_taxonomy(
+        'car_model',
+        'featured_car',
+        array(
+            'label' => __('Car Model', 'textdomain'),
+            'rewrite' => array('slug' => 'car-model'),
             'hierarchical' => false,
         )
     );
@@ -123,32 +159,33 @@ function create_featured_cars_taxonomies()
         )
     );
 
+
     register_taxonomy(
-        'car_model',
+        'car_transmission',
         'featured_car',
         array(
-            'label' => __('Car Model', 'textdomain'),
-            'rewrite' => array('slug' => 'car-model'),
+            'label' => __('Car Transmission', 'textdomain'),
+            'rewrite' => array('slug' => 'car-transmission'),
             'hierarchical' => false,
         )
     );
 
     register_taxonomy(
-        'car_year',
+        'car_mileage',
         'featured_car',
         array(
-            'label' => __('Car Year', 'textdomain'),
-            'rewrite' => array('slug' => 'car-condition'),
+            'label' => __('Car Mileage', 'textdomain'),
+            'rewrite' => array('slug' => 'car-mileage'),
             'hierarchical' => false,
         )
     );
 
     register_taxonomy(
-        'car_condition',
+        'car_hp',
         'featured_car',
         array(
-            'label' => __('Car Condition', 'textdomain'),
-            'rewrite' => array('slug' => 'car-condition'),
+            'label' => __('Car Horsepower', 'textdomain'),
+            'rewrite' => array('slug' => 'car-hp'),
             'hierarchical' => false,
         )
     );
