@@ -193,3 +193,83 @@ function create_featured_cars_taxonomies()
     );
 }
 add_action('init', 'create_featured_cars_taxonomies');
+
+
+
+function create_testimonial_cars_cpt()
+{
+    $labels = array(
+        'name' => __('Testimonials', 'textdomain'),
+        'singular_name' => __('Testimonial', 'textdomain'),
+        'menu_name' => __('Testimonials', 'textdomain'),
+        'add_new' => __('Add New Testimonial', 'textdomain'),
+        'add_new_item' => __('Add New Testimonial ', 'textdomain'),
+        'edit_item' => __('Edit Testimonial', 'textdomain'),
+        'new_item' => __('New Testimonial', 'textdomain'),
+        'view_item' => __('View Testimonial', 'textdomain'),
+        'search_items' => __('Search Testimonial', 'textdomain'),
+        'not_found' => __('No Testimonial found', 'textdomain'),
+        'not_found_in_trash' => __('No Testimonial found in trash', 'textdomain'),
+    );
+
+    $args = array(
+        'labels' => $labels,
+        'public' => true,
+        'has_archive' => true,
+        'menu_position' => 6,
+        'menu_icon' => 'dashicons-testimonial',
+        'supports' => array('title', 'editor', 'thumbnail', 'custom-fields'),
+        'rewrite' => array('slug' => 'Testimonial-cars'),
+    );
+
+    register_post_type('testimonials', $args);
+}
+add_action('init', 'create_testimonial_cars_cpt');
+
+//adding custom fields to testimonial post type
+function add_testimonial_meta_boxes()
+{
+    add_meta_box(
+        'testimonial_meta_box',
+        'Testimonial Details',
+        'display_testimonial_meta_box',
+        'testimonials',
+        'normal',
+        'high'
+    );
+}
+add_action('add_meta_boxes', 'add_testimonial_meta_boxes');
+
+function display_testimonial_meta_box($testimonial)
+{
+    // Retrieve current name of the Director and Movie Rating based on review ID
+
+    $testimonial_country = esc_html(get_post_meta($testimonial->ID, 'testimonial_country', true));
+
+
+?>
+    <table>
+
+        <tr>
+            <td style="width: 100%">Testimonial Country</td>
+            <td><input type="text" size="80" name="testimonial_country" value="<?php echo $testimonial_country; ?>" /></td>
+        </tr>
+
+    </table>
+<?php
+}
+
+function save_testimonial_meta_box($testimonial_id, $testimonial)
+{
+    // Save movie director and rating
+    if (isset($_POST['testimonial_name'])) {
+        update_post_meta($testimonial_id, 'testimonial_name', sanitize_text_field($_POST['testimonial_name']));
+    }
+    if (isset($_POST['testimonial_country'])) {
+        update_post_meta($testimonial_id, 'testimonial_country', sanitize_text_field($_POST['testimonial_country']));
+    }
+    if (isset($_POST['testimonial_review'])) {
+        update_post_meta($testimonial_id, 'testimonial_review', sanitize_text_field($_POST['testimonial_review']));
+    }
+}
+add_action('save_post', 'save_testimonial_meta_box', 10, 2);

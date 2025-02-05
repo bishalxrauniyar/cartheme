@@ -381,102 +381,58 @@
         </div>
         <!--/.section-header-->
         <div class="row">
-            <div class="owl-carousel testimonial-carousel">
-                <div class="col-sm-3 col-xs-12">
-                    <div class="single-testimonial-box">
-                        <div class="testimonial-description">
-                            <div class="testimonial-info">
-                                <div class="testimonial-img">
-                                    <img
-                                        src="wp-content/themes/cartheme/assets/images/clients/c1.png"
-                                        alt="image of clients person" />
+
+            <?php
+            $args = array(
+                'post_type' => 'testimonial',
+                'posts_per_page' => -1, // Fetch multiple posts
+            );
+            $testimonial = new WP_Query($args);
+            if ($testimonial->have_posts()) :
+            ?>
+                <div class="owl-carousel testimonial-carousel">
+                    <?php
+                    while ($testimonial->have_posts()) : $testimonial->the_post();
+                    ?>
+                        <div class="col-sm-3 col-xs-12">
+                            <div class="single-testimonial-box">
+                                <div class="testimonial-description">
+                                    <div class="testimonial-info">
+                                        <div class="testimonial-img">
+                                            <?php if (has_post_thumbnail()) : ?>
+                                                <img src="<?php echo esc_url(get_the_post_thumbnail_url()); ?>" alt="image of clients person" />
+                                            <?php endif; ?>
+                                        </div>
+                                        <!--/.testimonial-img-->
+                                    </div>
+                                    <!--/.testimonial-info-->
+                                    <div class="testimonial-comment">
+                                        <p>
+                                            <?php the_excerpt(); ?>
+                                        </p>
+                                    </div>
+                                    <!--/.testimonial-comment-->
+                                    <div class="testimonial-person">
+                                        <h2><a href="#"><?php the_title(); ?></a></h2>
+                                        <h4><?php echo get_post_meta(get_the_ID(), 'location', true); ?></h4>
+                                    </div>
+                                    <!--/.testimonial-person-->
                                 </div>
-                                <!--/.testimonial-img-->
+                                <!--/.testimonial-description-->
                             </div>
-                            <!--/.testimonial-info-->
-                            <div class="testimonial-comment">
-                                <p>
-                                    Sed ut pers unde omnis iste natus error sit voluptatem
-                                    accusantium dolor laudan rem aperiam, eaque ipsa quae ab
-                                    illo inventore verit.
-                                </p>
-                            </div>
-                            <!--/.testimonial-comment-->
-                            <div class="testimonial-person">
-                                <h2><a href="#">tomas lili</a></h2>
-                                <h4>new york</h4>
-                            </div>
-                            <!--/.testimonial-person-->
+                            <!--/.single-testimonial-box-->
                         </div>
-                        <!--/.testimonial-description-->
-                    </div>
-                    <!--/.single-testimonial-box-->
+                    <?php endwhile; ?>
+
                 </div>
-                <!--/.col-->
-                <div class="col-sm-3 col-xs-12">
-                    <div class="single-testimonial-box">
-                        <div class="testimonial-description">
-                            <div class="testimonial-info">
-                                <div class="testimonial-img">
-                                    <img
-                                        src="wp-content/themes/cartheme/assets/images/clients/c2.png"
-                                        alt="image of clients person" />
-                                </div>
-                                <!--/.testimonial-img-->
-                            </div>
-                            <!--/.testimonial-info-->
-                            <div class="testimonial-comment">
-                                <p>
-                                    Sed ut pers unde omnis iste natus error sit voluptatem
-                                    accusantium dolor laudan rem aperiam, eaque ipsa quae ab
-                                    illo inventore verit.
-                                </p>
-                            </div>
-                            <!--/.testimonial-comment-->
-                            <div class="testimonial-person">
-                                <h2><a href="#">romi rain</a></h2>
-                                <h4>london</h4>
-                            </div>
-                            <!--/.testimonial-person-->
-                        </div>
-                        <!--/.testimonial-description-->
-                    </div>
-                    <!--/.single-testimonial-box-->
-                </div>
-                <!--/.col-->
-                <div class="col-sm-3 col-xs-12">
-                    <div class="single-testimonial-box">
-                        <div class="testimonial-description">
-                            <div class="testimonial-info">
-                                <div class="testimonial-img">
-                                    <img
-                                        src="wp-content/themes/cartheme/assets/images/clients/c3.png"
-                                        alt="image of clients person" />
-                                </div>
-                                <!--/.testimonial-img-->
-                            </div>
-                            <!--/.testimonial-info-->
-                            <div class="testimonial-comment">
-                                <p>
-                                    Sed ut pers unde omnis iste natus error sit voluptatem
-                                    accusantium dolor laudan rem aperiam, eaque ipsa quae ab
-                                    illo inventore verit.
-                                </p>
-                            </div>
-                            <!--/.testimonial-comment-->
-                            <div class="testimonial-person">
-                                <h2><a href="#">john doe</a></h2>
-                                <h4>washington</h4>
-                            </div>
-                            <!--/.testimonial-person-->
-                        </div>
-                        <!--/.testimonial-description-->
-                    </div>
-                    <!--/.single-testimonial-box-->
-                </div>
-                <!--/.col-->
-            </div>
-            <!--/.testimonial-carousel-->
+                <!--/.testimonial-carousel-->
+            <?php
+                wp_reset_postdata();
+            else :
+                echo '<p>' . __('No Testimonial found', 'textdomain') . '</p>';
+            endif;
+            ?>
+
         </div>
         <!--/.row-->
     </div>
