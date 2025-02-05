@@ -385,7 +385,7 @@
             <?php
             $args = array(
                 'post_type' => 'testimonial',
-                'posts_per_page' => -1, // Fetch multiple posts
+                'posts_per_page' => -1, // Fetch all posts
             );
             $testimonial = new WP_Query($args);
             if ($testimonial->have_posts()) :
