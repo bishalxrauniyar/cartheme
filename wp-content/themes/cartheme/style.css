@@ -9,3 +9,97 @@ Requires PHP: 7.2
 Version: 1.0
 Text Domain: bishal
 */
+
+/* General Styles */
+.single-cars-content {
+  padding-top: 50px;
+}
+
+/* Car Details Styling */
+.single-cars-txt {
+  text-align: left;
+  padding: 20px;
+}
+
+.car-title {
+  font-size: 28px;
+  font-weight: 600;
+}
+
+.car-title .car-model {
+  display: block;
+  font-size: 18px;
+  color: #6c757d;
+}
+
+.featured-model-info p {
+  font-size: 16px;
+  line-height: 1.6;
+}
+
+.featured-mi-span,
+.featured-hp-span {
+  display: inline-block;
+  margin-left: 10px;
+}
+
+.single-cars-img img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 10px;
+}
+
+/* Contact Form Styling */
+.contact-form-container {
+  margin: 30px auto;
+  width: 100%;
+  max-width: 600px;
+  background-color: #f8f9fa;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+#ContactForm table {
+  width: 100%;
+}
+
+#ContactForm td {
+  padding: 10px;
+  text-align: left;
+}
+
+#ContactForm input[type="text"],
+#ContactForm input[type="email"],
+#ContactForm textarea {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 14px;
+}
+
+#ContactForm textarea {
+  height: 100px;
+}
+
+#ContactForm input[type="submit"] {
+  width: 100%;
+  padding: 10px;
+  background-color: #1103fb;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+#ContactForm input[type="submit"]:hover {
+  background-color: #1213fa;
+}
+
+@media (max-width: 768px) {
+  .single-cars-txt {
+    text-align: center;
+  }
+}

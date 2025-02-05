@@ -13,6 +13,7 @@ function cartheme_theme_load_styles()
     wp_enqueue_style('cartheme5_owlcarouseltheme', get_template_directory_uri() . '/assets/css/owl.theme.default.min.css', array(), 'Version', 'all');
     wp_enqueue_style('cartheme_style', get_template_directory_uri() . '/assets/css/style.css', array(), 'Version', 'all');
     wp_enqueue_style('cartheme_responsive', get_template_directory_uri() . '/assets/css/responsive.css', array(), 'Version', 'all');
+    wp_enqueue_style('custom_css', get_template_directory_uri() . '/style.css', array(), 'Version', 'all');
 }
 add_action('wp_enqueue_scripts', 'cartheme_theme_load_styles');
 
@@ -111,7 +112,7 @@ function create_featured_cars_taxonomies()
         array(
             'label' => __('Car Body Type', 'textdomain'),
             'rewrite' => array('slug' => 'car-type'),
-            'hierarchical' => false,
+            'hierarchical' => true,
         )
     );
 
@@ -122,7 +123,7 @@ function create_featured_cars_taxonomies()
         array(
             'label' => __('Car Brand', 'textdomain'),
             'rewrite' => array('slug' => 'car-brand'),
-            'hierarchical' => false,
+            'hierarchical' => true,
         )
     );
 
@@ -133,7 +134,7 @@ function create_featured_cars_taxonomies()
         array(
             'label' => __('Car Condition', 'textdomain'),
             'rewrite' => array('slug' => 'car-condition'),
-            'hierarchical' => false,
+            'hierarchical' => true,
         )
     );
 
@@ -145,7 +146,7 @@ function create_featured_cars_taxonomies()
         array(
             'label' => __('Car Model', 'textdomain'),
             'rewrite' => array('slug' => 'car-model'),
-            'hierarchical' => false,
+            'hierarchical' => true,
         )
     );
 
@@ -156,6 +157,7 @@ function create_featured_cars_taxonomies()
             'label' => __('Car Price', 'textdomain'),
             'rewrite' => array('slug' => 'car-price'),
             'hierarchical' => false,
+
         )
     );
 

@@ -216,142 +216,64 @@
         <div class="new-cars-content">
 
             <?php
-            // $args = array(
-            //     'post_type' => 'new_car',
-            //     'posts_per_page' => 1,
-            // );
-            // $new_cars = new WP_Query($args);
-            // if ($featured_cars->have_posts()) :
-            //     $posts = $featured_cars->posts;
-
-
-            // endif;
+            $args = array(
+                'post_type' => 'featured_car',
+                'posts_per_page' => 3, // Fetch multiple posts
+            );
+            $featured_cars = new WP_Query($args);
+            if ($featured_cars->have_posts()) :
             ?>
-            <div class="owl-carousel owl-theme" id="new-cars-carousel">
-                <div class="new-cars-item">
-                    <div class="single-new-cars-item">
-                        <div class="row">
-                            <div class="col-md-7 col-sm-12">
-                                <div class="new-cars-img">
-                                    <img
-                                        src="wp-content\themes\cartheme\assets\images\new-cars-model\ncm1.png"
-                                        alt="img">
+                <div class="owl-carousel owl-theme" id="new-cars-carousel">
+                    <?php
+                    while ($featured_cars->have_posts()) : $featured_cars->the_post();
+                        $car_model = get_the_terms(get_the_ID(), 'car_model');
+                    ?>
+                        <div class="new-cars-item">
+                            <div class="single-new-cars-item">
+                                <div class="row">
+                                    <div class="col-md-7 col-sm-12">
+                                        <div class="new-cars-img">
+                                            <img src="<?php echo esc_url(get_the_post_thumbnail_url()); ?>"
+                                                alt="<?php echo esc_attr(get_the_title()); ?>">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-5 col-sm-12">
+                                        <div class="new-cars-txt">
+                                            <h2>
+                                                <a href="<?php the_permalink(); ?>">
+                                                    <?php the_title(); ?> <span><?php echo ($car_model) ? esc_html($car_model[0]->name) : 'N/A'; ?></span>
+                                                </a>
+                                            </h2>
+                                            <p><?php the_excerpt(); ?></p>
+                                            <button class="welcome-btn new-cars-btn"
+                                                onclick="window.location.href='<?php the_permalink(); ?>'">
+                                                view details
+                                            </button>
+                                        </div>
+                                    </div>
                                 </div>
+                            </div>
+                        </div>
+                    <?php endwhile; ?>
+                </div>
+            <?php
+                wp_reset_postdata();
+            else :
+                echo '<p>' . __('No featured cars found', 'textdomain') . '</p>';
+            endif;
+            ?>
 
-                                <!--/.new-cars-img-->
-                            </div>
-                            <div class="col-md-5 col-sm-12">
-                                <div class="new-cars-txt">
-                                    <h2>
-                                        <a href="#">chevrolet camaro <span> za100</span></a>
-                                    </h2>
-                                    <p>
-                                        Duis aute irure dolor in reprehenderit in voluptate
-                                        velit esse cillum dolore eu fugiat nulla pariatur.
-                                        Excepteur sint occaecat cupidatat non proident, sunt in
-                                        culpa qui officia deserunt mollit anim id est laborum.
-                                    </p>
-                                    <p class="new-cars-para2">
-                                        Sed ut pers unde omnis iste natus error sit voluptatem
-                                        accusantium doloremque laudantium.
-                                    </p>
-                                    <button
-                                        class="welcome-btn new-cars-btn"
-                                        onclick="window.location.href='#'">
-                                        view details
-                                    </button>
-                                </div>
-                                <!--/.new-cars-txt-->
-                            </div>
-                            <!--/.col-->
-                        </div>
-                        <!--/.row-->
-                    </div>
-                    <!--/.single-new-cars-item-->
-                </div>
-                <!--/.new-cars-item-->
-                <div class="new-cars-item">
-                    <div class="single-new-cars-item">
-                        <div class="row">
-                            <div class="col-md-7 col-sm-12">
-                                <div class="new-cars-img">
-                                    <img
-                                        src="wp-content\themes\cartheme\assets\images\new-cars-model\ncm2.png"
-                                        alt="img" />
-                                </div>
-                                <!--/.new-cars-img-->
-                            </div>
-                            <div class="col-md-5 col-sm-12">
-                                <div class="new-cars-txt">
-                                    <h2><a href="#">BMW series-3 wagon</a></h2>
-                                    <p>
-                                        Duis aute irure dolor in reprehenderit in voluptate
-                                        velit esse cillum dolore eu fugiat nulla pariatur.
-                                        Excepteur sint occaecat cupidatat non proident, sunt in
-                                        culpa qui officia deserunt mollit anim id est laborum.
-                                    </p>
-                                    <p class="new-cars-para2">
-                                        Sed ut pers unde omnis iste natus error sit voluptatem
-                                        accusantium doloremque laudantium.
-                                    </p>
-                                    <button
-                                        class="welcome-btn new-cars-btn"
-                                        onclick="window.location.href='#'">
-                                        view details
-                                    </button>
-                                </div>
-                                <!--/.new-cars-txt-->
-                            </div>
-                            <!--/.col-->
-                        </div>
-                        <!--/.row-->
-                    </div>
-                    <!--/.single-new-cars-item-->
-                </div>
-                <!--/.new-cars-item-->
-                <div class="new-cars-item">
-                    <div class="single-new-cars-item">
-                        <div class="row">
-                            <div class="col-md-7 col-sm-12">
-                                <div class="new-cars-img">
-                                    <img
-                                        src="wp-content\themes\cartheme\assets/images/new-cars-model/ncm3.png"
-                                        alt="img" />
-                                </div>
-                                <!--/.new-cars-img-->
-                            </div>
-                            <div class="col-md-5 col-sm-12">
-                                <div class="new-cars-txt">
-                                    <h2><a href="#">ferrari 488 superfast</a></h2>
-                                    <p>
-                                        Duis aute irure dolor in reprehenderit in voluptate
-                                        velit esse cillum dolore eu fugiat nulla pariatur.
-                                        Excepteur sint occaecat cupidatat non proident, sunt in
-                                        culpa qui officia deserunt mollit anim id est laborum.
-                                    </p>
-                                    <p class="new-cars-para2">
-                                        Sed ut pers unde omnis iste natus error sit voluptatem
-                                        accusantium doloremque laudantium.
-                                    </p>
-                                    <button
-                                        class="welcome-btn new-cars-btn"
-                                        onclick="window.location.href='#'">
-                                        view details
-                                    </button>
-                                </div>
-                                <!--/.new-cars-txt-->
-                            </div>
-                            <!--/.col-->
-                        </div>
-                        <!--/.row-->
-                    </div>
-                    <!--/.single-new-cars-item-->
-                </div>
-                <!--/.new-cars-item-->
-            </div>
-            <!--/#new-cars-carousel-->
+            <!--/.col-->
         </div>
-        <!--/.new-cars-content-->
+        <!--/.row-->
+    </div>
+    <!--/.single-new-cars-item-->
+    </div>
+    <!--/.new-cars-item-->
+    </div>
+    <!--/#new-cars-carousel-->
+    </div>
+    <!--/.new-cars-content-->
     </div>
     <!--/.container-->
 </section>
