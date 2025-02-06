@@ -7,15 +7,15 @@ get_header();
 <section id="featured-cars" class="featured-cars">
     <div class="container">
         <div class="section-header">
-            <p>Checkout <span>the</span> featured cars</p>
-            <h2>Featured Cars</h2>
+            <p>Checkout <span>the</span> result of the cars search</p>
+            <h2>Available Cars</h2>
         </div>
 
         <div class="featured-cars-content">
             <?php
             $args = array(
                 'post_type'      => 'featured_car',
-                'posts_per_page' => 8,
+                'posts_per_page' => -1,
             );
             $featured_cars = new WP_Query($args);
 
