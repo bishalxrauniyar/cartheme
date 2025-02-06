@@ -2,9 +2,10 @@
 get_header();
 ?>
 </section>
-<style>
-
-</style>
+<br>
+<br>
+<br>
+<br>
 <div class="container">
     <div class="single-cars-content">
         <?php
@@ -12,8 +13,9 @@ get_header();
             while (have_posts()) : the_post();
                 $car_model = get_the_terms(get_the_ID(), 'car_model');
                 $car_year = get_the_terms(get_the_ID(), 'car_year');
-                $car_mileage = get_the_terms(get_the_ID(), 'car_mileage');
-                $car_hp = get_the_terms(get_the_ID(), 'car_hp');
+                $car_price = get_post_meta(get_the_ID(), 'car_price', true);
+                $car_mileage = get_post_meta(get_the_ID(), 'car_mileage', true);
+                $car_hp = get_post_meta(get_the_ID(), 'car_hp', true);
                 $car_transmission = get_the_terms(get_the_ID(), 'car_transmission');
         ?>
                 <div class="single-cars-item">
@@ -32,6 +34,9 @@ get_header();
                                         <span class="car-model">
                                             <?php echo ($car_model && !is_wp_error($car_model)) ? esc_html($car_model[0]->name) : 'N/A'; ?>
                                         </span>
+                                        <span class="car-price">
+                                            <?php echo (!empty($car_price)) ? '$' . esc_html($car_price) : ''; ?>
+                                        </span>
                                     </h2>
                                     <p><?php the_content(); ?></p>
 
@@ -39,10 +44,10 @@ get_header();
                                         <p>
                                             <strong>Model:</strong> <?php echo ($car_year && !is_wp_error($car_year)) ? esc_html($car_year[0]->name) : 'N/A'; ?>
                                             <span class="featured-mi-span">
-                                                <strong>Mileage:</strong> <?php echo ($car_mileage && !is_wp_error($car_mileage)) ? esc_html($car_mileage[0]->name) . ' mi' : 'N/A'; ?>
+                                                <strong>Mileage:</strong> <?php echo (!empty($car_mileage)) ? esc_html($car_mileage) . ' HP' : ''; ?>
                                             </span>
                                             <span class="featured-hp-span">
-                                                <strong>Horsepower:</strong> <?php echo ($car_hp && !is_wp_error($car_hp)) ? esc_html($car_hp[0]->name) . ' HP' : 'N/A'; ?>
+                                                <strong>Horsepower:</strong> <?php echo (!empty($car_hp)) ? esc_html($car_hp) . ' HP' : ''; ?>
                                             </span>
                                             <strong>Transmission:</strong> <?php echo ($car_transmission && !is_wp_error($car_transmission)) ? esc_html($car_transmission[0]->name) : 'N/A'; ?>
                                         </p>

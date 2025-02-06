@@ -151,50 +151,75 @@ function create_featured_cars_taxonomies()
     );
 
     register_taxonomy(
-        'car_price',
-        'featured_car',
-        array(
-            'label' => __('Car Price', 'textdomain'),
-            'rewrite' => array('slug' => 'car-price'),
-            'hierarchical' => false,
-
-        )
-    );
-
-
-    register_taxonomy(
         'car_transmission',
         'featured_car',
         array(
             'label' => __('Car Transmission', 'textdomain'),
             'rewrite' => array('slug' => 'car-transmission'),
-            'hierarchical' => false,
-        )
-    );
-
-    register_taxonomy(
-        'car_mileage',
-        'featured_car',
-        array(
-            'label' => __('Car Mileage', 'textdomain'),
-            'rewrite' => array('slug' => 'car-mileage'),
-            'hierarchical' => false,
-        )
-    );
-
-    register_taxonomy(
-        'car_hp',
-        'featured_car',
-        array(
-            'label' => __('Car Horsepower', 'textdomain'),
-            'rewrite' => array('slug' => 'car-hp'),
-            'hierarchical' => false,
+            'hierarchical' => true,
         )
     );
 }
 add_action('init', 'create_featured_cars_taxonomies');
 
+//adding meta boxes to featured cars post type for price ,mileage and hp
 
+function add_featured_car_meta_boxes()
+{
+    add_meta_box(
+        'featured_car_meta_box',
+        'Car Details',
+        'display_featured_car_meta_box',
+        'featured_car',
+        'normal',
+        'high'
+    );
+}
+add_action('add_meta_boxes', 'add_featured_car_meta_boxes');
+
+function display_featured_car_meta_box($featured_car)
+{
+    // Retrieve current name of the Director and Movie Rating based on review ID
+
+    $car_price = esc_html(get_post_meta($featured_car->ID, 'car_price', true));
+    $car_mileage = esc_html(get_post_meta($featured_car->ID, 'car_mileage', true));
+    $car_hp = esc_html(get_post_meta($featured_car->ID, 'car_hp', true));
+
+?>
+    <table>
+
+        <tr>
+            <td style="width: 100%">Car Price</td>
+            <td><input type="number" size="80" name="car_price" value="<?php echo $car_price; ?>" /></td>
+        </tr>
+        <tr>
+            <td style="width: 100%">Car Mileage</td>
+            <td><input type="number" size="80" name="car_mileage" value="<?php echo $car_mileage; ?>" /></td>
+        </tr>
+        <tr>
+            <td style="width: 100%">Car Horsepower</td>
+            <td><input type="number" size="80" name="car_hp" value="<?php echo $car_hp; ?>" /></td>
+        </tr>
+    </table>
+<?php
+}
+
+function save_featured_car_meta_box($featured_car_id, $featured_car)
+{
+    if (isset($_POST['car_price'])) {
+        update_post_meta($featured_car_id, 'car_price', sanitize_text_field($_POST['car_price']));
+    }
+    if (isset($_POST['car_mileage'])) {
+        update_post_meta($featured_car_id, 'car_mileage', sanitize_text_field($_POST['car_mileage']));
+    }
+    if (isset($_POST['car_hp'])) {
+        update_post_meta($featured_car_id, 'car_hp', sanitize_text_field($_POST['car_hp']));
+    }
+}
+
+add_action('save_post', 'save_featured_car_meta_box', 10, 2);
+
+// custom post type for testimonials
 
 function create_testimonial_cars_cpt()
 {
@@ -251,7 +276,7 @@ function display_testimonial_meta_box($testimonial)
     <table>
 
         <tr>
-            <td style="width: 100%">Testimonial Country</td>
+            <td style="width: 100%">Testimonial Location</td>
             <td><input type="text" size="80" name="testimonial_country" value="<?php echo $testimonial_country; ?>" /></td>
         </tr>
 

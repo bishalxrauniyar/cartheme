@@ -13,8 +13,18 @@ Text Domain: bishal
 /* General Styles */
 .single-cars-content {
   padding-top: 50px;
+  margin-top: 100px;
 }
 
+/* body Styling */
+body {
+  font-family: "Poppins", sans-serif;
+  margin: 0;
+  padding: 0;
+  background-image: url("assets/images/featured-cars/single-page-wall.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+}
 /* Car Details Styling */
 .single-cars-txt {
   text-align: left;
@@ -31,7 +41,11 @@ Text Domain: bishal
   font-size: 18px;
   color: #6c757d;
 }
-
+.car-price {
+  font-size: 24px;
+  font-weight: 600;
+  color: #fb0303;
+}
 .featured-model-info p {
   font-size: 16px;
   line-height: 1.6;
@@ -54,7 +68,7 @@ Text Domain: bishal
   margin: 30px auto;
   width: 100%;
   max-width: 600px;
-  background-color: #f8f9fa;
+  background-color: #f8f9fb;
   padding: 20px;
   border-radius: 8px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
