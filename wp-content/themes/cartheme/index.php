@@ -384,7 +384,7 @@
 
             <?php
             $args = array(
-                'post_type' => 'testimonial',
+                'post_type' => 'testimonials',
                 'posts_per_page' => -1, // Fetch all posts
             );
             $testimonial = new WP_Query($args);
@@ -414,7 +414,7 @@
                                     <!--/.testimonial-comment-->
                                     <div class="testimonial-person">
                                         <h2><a href="#"><?php the_title(); ?></a></h2>
-                                        <h4><?php echo get_post_meta(get_the_ID(), 'location', true); ?></h4>
+                                        <h4><?php echo esc_html(get_post_meta(get_the_ID(), 'testimonial_country', true)); ?></h4>
                                     </div>
                                     <!--/.testimonial-person-->
                                 </div>

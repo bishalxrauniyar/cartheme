@@ -261,15 +261,9 @@ function display_testimonial_meta_box($testimonial)
 
 function save_testimonial_meta_box($testimonial_id, $testimonial)
 {
-    // Save movie director and rating
-    if (isset($_POST['testimonial_name'])) {
-        update_post_meta($testimonial_id, 'testimonial_name', sanitize_text_field($_POST['testimonial_name']));
-    }
     if (isset($_POST['testimonial_country'])) {
         update_post_meta($testimonial_id, 'testimonial_country', sanitize_text_field($_POST['testimonial_country']));
     }
-    if (isset($_POST['testimonial_review'])) {
-        update_post_meta($testimonial_id, 'testimonial_review', sanitize_text_field($_POST['testimonial_review']));
-    }
 }
+
 add_action('save_post', 'save_testimonial_meta_box', 10, 2);
