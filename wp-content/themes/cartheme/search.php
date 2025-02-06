@@ -1,87 +1,91 @@
 <!-- search from the search bar -->
 <?php
 get_header();
+
+// Get query parameters
+//  checks if the `car_year` parameter is present in the URL. If it is, it sanitizes the value and assigns it to the `$car_year` variable. If it is not present, it assigns an empty string to `$car_year`. This ensures that the variable is always set to a safe value.
+$car_year = isset($_GET['car_year']) ? sanitize_text_field($_GET['car_year']) : '';
+$car_type = isset($_GET['car_type']) ? sanitize_text_field($_GET['car_type']) : '';
+$car_brand = isset($_GET['car_brand']) ? sanitize_text_field($_GET['car_brand']) : '';
+$car_condition = isset($_GET['car_condition']) ? sanitize_text_field($_GET['car_condition']) : '';
+$car_model = isset($_GET['car_model']) ? sanitize_text_field($_GET['car_model']) : '';
+$car_price = isset($_GET['car_price']) ? sanitize_text_field($_GET['car_price']) : '';
+
+// Build WP_Query arguments
+$args = array(
+    'post_type' => 'featured_car',
+    'posts_per_page' => -1,
+    'tax_query' => array(
+        'relation' => 'AND',
+    ),
+    'meta_query' => array(),
+);
+
+// Add taxonomy filters
+if (!empty($car_year)) {
+    $args['tax_query'][] = array(
+        'taxonomy' => 'car_year',
+        'field' => 'slug',
+        'terms' => $car_year,
+    );
+}
+if (!empty($car_type)) {
+    $args['tax_query'][] = array(
+        'taxonomy' => 'car_type',
+        'field' => 'slug',
+        'terms' => $car_type,
+    );
+}
+if (!empty($car_brand)) {
+    $args['tax_query'][] = array(
+        'taxonomy' => 'car_brand',
+        'field' => 'slug',
+        'terms' => $car_brand,
+    );
+}
+if (!empty($car_condition)) {
+    $args['tax_query'][] = array(
+        'taxonomy' => 'car_condition',
+        'field' => 'slug',
+        'terms' => $car_condition,
+    );
+}
+if (!empty($car_model)) {
+    $args['tax_query'][] = array(
+        'taxonomy' => 'car_model',
+        'field' => 'slug',
+        'terms' => $car_model,
+    );
+}
+
+// Add price filter
+if (!empty($car_price)) {
+    $args['meta_query'][] = array(
+        'key' => 'car_price',
+        'value' => $car_price,
+        'compare' => '='
+    );
+}
+
+// Run WP_Query
+$query = new WP_Query($args);
+
+if ($query->have_posts()) :
+    echo '<div class="search-results">';
+    while ($query->have_posts()) : $query->the_post();
+        // Display the car details here
 ?>
-
-
-<section id="featured-cars" class="featured-cars">
-    <div class="container">
-        <div class="section-header">
-            <p>Checkout <span>the</span> result of the cars search</p>
-            <h2>Available Cars</h2>
+        <div class="car-item">
+            <h2><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></h2>
+            <p>Price: <?php echo get_post_meta(get_the_ID(), 'car_price', true); ?></p>
         </div>
-
-        <div class="featured-cars-content">
-            <?php
-            $args = array(
-                'post_type'      => 'featured_car',
-                'posts_per_page' => -1,
-            );
-            $featured_cars = new WP_Query($args);
-
-            if ($featured_cars->have_posts()) :
-                $posts = $featured_cars->posts;
-                $chunks = array_chunk($posts, 4); // Split posts into chunks of 4
-
-                foreach ($chunks as $chunk) :
-                    echo '<div class="row">';
-                    foreach ($chunk as $post) :
-                        setup_postdata($post);
-
-                        // Get metadata and taxonomy terms
-                        $car_year    = get_the_terms($post->ID, 'car_year');
-                        $car_mileage = get_post_meta(get_the_ID(), 'car_mileage', true);
-                        $car_hp      = get_post_meta(get_the_ID(), 'car_hp', true);
-                        $car_type    = get_the_terms($post->ID, 'car_type');
-                        $car_price   = get_post_meta(get_the_ID(), 'car_price', true);
-                        $car_model   = get_the_terms($post->ID, 'car_model');
-                        $car_trasmission = get_the_terms($post->ID, 'car_transmission');
-            ?>
-
-                        <div class="col-lg-3 col-md-4 col-sm-6">
-                            <div class="single-featured-cars">
-                                <div class="featured-img-box">
-                                    <div class="featured-cars-img">
-                                        <?php if (has_post_thumbnail()) : ?>
-                                            <img src="<?php echo esc_url(get_the_post_thumbnail_url()); ?>" alt="<?php echo esc_attr(get_the_title()); ?>" />
-                                        <?php endif; ?>
-                                    </div>
-                                    <div class="featured-model-info">
-                                        <p>
-                                            Model: <?php echo (!empty($car_model) && !is_wp_error($car_model)) ? esc_html($car_model[0]->name) : 'N/A'; ?>
-                                            <span class="featured-mi-span">
-                                                <?php echo (!empty($car_mileage)) ? esc_html($car_mileage) . ' mi' : ''; ?>
-                                            </span>
-                                            <span class="featured-hp-span">
-                                                <?php echo (!empty($car_hp)) ? esc_html($car_hp) . ' HP' : ''; ?>
-                                            </span>
-                                            <?php echo (!empty($car_trasmission) && !is_wp_error($car_trasmission)) ? esc_html($car_trasmission[0]->name) : ''; ?>
-                                        </p>
-                                    </div>
-                                </div>
-                                <div class="featured-cars-txt">
-                                    <h2><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></h2>
-                                    <h3>
-                                        <?php echo (!empty($car_price)) ? '$' . esc_html(number_format($car_price)) : 'Price not available'; ?>
-                                    </h3>
-                                    <p><?php the_excerpt(); ?></p>
-                                </div>
-                            </div>
-                        </div>
-
-            <?php
-                    endforeach;
-                    echo '</div>'; // .row
-                endforeach;
-
-                wp_reset_postdata();
-            else :
-                echo '<p>' . __('No featured cars found', 'textdomain') . '</p>';
-            endif;
-            ?>
-        </div>
-    </div>
-</section>
 <?php
+    endwhile;
+    echo '</div>';
+else :
+    echo '<p>No results found.</p>';
+endif;
+
+wp_reset_postdata();
+
 get_footer();
-?>

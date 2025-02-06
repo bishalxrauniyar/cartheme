@@ -19,7 +19,7 @@
     <div class="row">
         <div class="col-md-12">
             <div class="model-search-content">
-                <form action="<?php echo site_url('/search-results'); ?>" method="GET">
+                <form action="search.php" method="GET">
                     <div class="row">
                         <!-- Year Selection -->
                         <div class="col-md-offset-1 col-md-2 col-sm-12">
