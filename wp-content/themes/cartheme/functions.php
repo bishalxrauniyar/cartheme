@@ -100,7 +100,7 @@ function create_featured_cars_taxonomies()
         array(
             'label' => __('Car Year', 'textdomain'),
             'rewrite' => array('slug' => 'car-year'),
-            'hierarchical' => false,
+            'hierarchical' => true,
         )
     );
 

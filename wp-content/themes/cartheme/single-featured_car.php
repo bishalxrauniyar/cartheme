@@ -97,9 +97,9 @@ get_header();
 
     <?php
     if (isset($_POST['sub'])) {
-        $name = sanitize_text_field($_POST['name']);
-        $email = sanitize_email($_POST['email']);
-        $message = sanitize_textarea_field($_POST['message']);
+        $name = sanitize_text_field($_POST['name']); // Sanitize the input name
+        $email = sanitize_email($_POST['email']); // Sanitize the input email
+        $message = sanitize_textarea_field($_POST['message']); // Sanitize the input message
 
         $to = "rauniyar.bishal@gmail.com";
         $subject = "Contact Form - $name";
