@@ -39,7 +39,7 @@ body {
 .car-title .car-model {
   display: block;
   font-size: 18px;
-  color: #6c757d;
+  color: #000000;
 }
 .car-price {
   font-size: 24px;
@@ -65,12 +65,12 @@ body {
 
 /* Contact Form Styling */
 .contact-form-container {
-  margin: 30px auto;
+  margin: 0px auto;
   width: 100%;
-  max-width: 600px;
+  max-width: 625px;
   background-color: #f8f9fb;
-  padding: 20px;
-  border-radius: 8px;
+  padding: 10px;
+  border-radius: 15px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
@@ -116,4 +116,13 @@ body {
   .single-cars-txt {
     text-align: center;
   }
+}
+
+.noresult {
+  margin-top: 80px;
+  text-align: center;
+  font-size: 24px;
+  font-weight: 600;
+  margin-top: 50px;
+  z-index: 0;
 }

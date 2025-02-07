@@ -2,20 +2,11 @@
 get_header();
 ?>
 </section>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br><br>
-<br>
-<br>
-<br>
+<br><br><br><br><br><br><br><br><br><br><br><br>
+
 <?php include 'searchform.php'; ?>
 
-<br>
+<br><br><br><br>
 <?php
 // Get search parameters from the GET request
 $car_year = isset($_GET['car_year']) ? sanitize_text_field($_GET['car_year']) : '';
@@ -98,7 +89,7 @@ if ($search_query->have_posts()) :
         $car_transmission = get_the_terms(get_the_ID(), 'car_transmission');
 
 ?>
-        <div class="container">
+        <div class="container" style="background-image: url('<?php echo get_template_directory_uri(); ?>/assets/images/featured-cars/single-page-wall.jpg'); no-repeat center center fixed; background-size: cover; padding: 10px 0; margin-left :20 px;">
             <div class="single-cars-content">
                 <div class="single-cars-item">
                     <div class="single-single-cars-item">
@@ -141,10 +132,11 @@ if ($search_query->have_posts()) :
                 </div>
             </div>
         </div>
-        </div>
+
 <?php
     endwhile;
 // No results found
+
 else :
     echo '<div class="noresult"><h1>No cars found</h1></div>';
 endif;

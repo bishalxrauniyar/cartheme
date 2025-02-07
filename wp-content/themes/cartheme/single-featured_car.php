@@ -26,8 +26,7 @@ get_header();
                                     <img src="<?php echo esc_url(get_the_post_thumbnail_url()); ?>"
                                         alt="<?php echo esc_attr(get_the_title()); ?>" class="img-fluid rounded">
                                 </div>
-                            </div>
-                            <div class="col-md-6 col-sm-12">
+                                <!-- details -->
                                 <div class="single-cars-txt">
                                     <h2 class="car-title">
                                         <?php the_title(); ?>
@@ -38,10 +37,10 @@ get_header();
                                             <?php echo (!empty($car_price)) ? '$' . esc_html($car_price) : ''; ?>
                                         </span>
                                     </h2>
-                                    <p><?php the_content(); ?></p>
+                                    <p style="color: black;"><?php the_content(); ?></p>
 
                                     <div class="featured-model-info">
-                                        <p>
+                                        <p style="color: black;">
                                             <strong>Model:</strong> <?php echo ($car_year && !is_wp_error($car_year)) ? esc_html($car_year[0]->name) : 'N/A'; ?>
                                             <span class="featured-mi-span">
                                                 <strong>Mileage:</strong> <?php echo (!empty($car_mileage)) ? esc_html($car_mileage) . ' HP' : ''; ?>
@@ -55,6 +54,36 @@ get_header();
 
                                 </div>
                             </div>
+                            <div class="col-md-6 col-sm-12">
+
+                                <!-- Contact Form -->
+                                <form action="#" id="ContactForm" method="post" enctype="multipart/form-data">
+                                    <div class="contact-form-container">
+                                        <h2 class="text-center">Contact Us</h2>
+                                        <table>
+                                            <tr>
+                                                <td><label for="name">Name:</label></td>
+                                                <td><input name="name" id="name" type="text" required></td>
+                                            </tr>
+                                            <tr>
+                                                <td><label for="email">Email:</label></td>
+                                                <td><input name="email" id="email" type="email" required></td>
+                                            </tr>
+                                            <tr>
+                                                <td><label for="message">Message:</label></td>
+                                                <td><textarea name="message" id="message" required></textarea></td>
+                                            </tr>
+                                            <tr>
+                                                <td colspan="2" class="text-center">
+                                                    <input name="sub" type="submit" value="Submit" class="btn btn-success">
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                </form>
+                                <!-- End Contact Form -->
+
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -67,31 +96,7 @@ get_header();
         ?>
     </div>
 
-    <!-- Contact Form -->
-    <form action="#" id="ContactForm" method="post" enctype="multipart/form-data">
-        <div class="contact-form-container">
-            <h2 class="text-center">Contact Us</h2>
-            <table>
-                <tr>
-                    <td><label for="name">Name:</label></td>
-                    <td><input name="name" id="name" type="text" required></td>
-                </tr>
-                <tr>
-                    <td><label for="email">Email:</label></td>
-                    <td><input name="email" id="email" type="email" required></td>
-                </tr>
-                <tr>
-                    <td><label for="message">Message:</label></td>
-                    <td><textarea name="message" id="message" required></textarea></td>
-                </tr>
-                <tr>
-                    <td colspan="2" class="text-center">
-                        <input name="sub" type="submit" value="Submit" class="btn btn-success">
-                    </td>
-                </tr>
-            </table>
-        </div>
-    </form>
+
 
 
 
