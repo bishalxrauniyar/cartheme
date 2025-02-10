@@ -1,3 +1,4 @@
+<!-- // custom search page for the carvilla theme , this page is used to display the search results of the custom search form in the searchform.php file in the theme.    -->
 <?php
 get_header();
 ?>

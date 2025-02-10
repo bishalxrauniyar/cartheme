@@ -1,3 +1,4 @@
+<!-- // this file is used for the search page attributes like taxonomy and meta fields. -->
 <!-- custom search form for the car post type -->
 
 <div class="container">
@@ -22,7 +23,7 @@
 
                                         foreach ($car_years as $car_year) {
                                             $selected = ($selected == $car_year->slug) ? 'selected' : '';
-                                            echo '<option value="' . esc_attr($car_year->slug) . '" ' . $selected . '>' . esc_html($car_year->name) . '</option>';
+                                            echo '<option value="' . esc_attr($car_year->slug) . '" ' . $selected . '>' . esc_html($car_year->name) . '</option>'; // Display the year name
                                         }
                                         ?>
                                     </select>

@@ -1,3 +1,4 @@
+<!-- // added theme support , styles, scripts, cpt, metabox, taxonomy, custom fields, and custom post types, nav menus, and google fonts -->
 <?php
 //load css
 function cartheme_theme_load_styles()

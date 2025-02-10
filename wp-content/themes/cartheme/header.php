@@ -1,3 +1,4 @@
+<!-- // header.php is the file that contains the header of the website. It contains the navigation bar and the logo of the website. It also contains the meta data of the website. The header.php file is included in all the pages of the website. The header.php file is located in the wp-content/themes/cartheme directory. -->
 <!doctype html>
 <html class="no-js" lang="en">
 

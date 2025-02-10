@@ -1,3 +1,4 @@
+<!-- // the front-page.php file is used to display the home page of the site. shifted to fornt-page from index page -->
 <?php get_header(); ?>
 <!-- Banner section start ------------------------------------------------------------------------------------------------------------------------>
 <div class="container">

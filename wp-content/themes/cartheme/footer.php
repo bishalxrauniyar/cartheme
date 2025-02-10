@@ -1,4 +1,5 @@
  <!--contact start-->
+ <!-- //footer page for carvilla theme contains the footer nav and news letters email subscribtion form and social media links and contact details  -->
  <footer id="contact" class="contact">
      <div class="container">
          <div class="footer-top">
