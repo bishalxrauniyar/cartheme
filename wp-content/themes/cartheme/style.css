@@ -14,8 +14,9 @@ Text Domain: bishal
 
 /* General Styles */
 .single-cars-content {
-  padding-top: 50px;
+  padding-top: 100px;
   margin-top: 100px;
+  margin-left: 20px;
 }
 
 /* body Styling */
@@ -132,4 +133,23 @@ body {
 .btn,
 btn-primary {
   margin-top: 24px;
+}
+
+.containerr {
+  padding: 20%;
+  color: black;
+}
+
+img.img-fluid.roundedd {
+  height: auto;
+  width: 400px;
+}
+p {
+  font-size: 15px;
+  color: black;
+}
+
+.featured-model-infoo {
+  padding: 12px 7px;
+  color: black;
 }

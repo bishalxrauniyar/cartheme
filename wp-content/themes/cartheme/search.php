@@ -1,4 +1,7 @@
 <!-- // custom search page for the carvilla theme , this page is used to display the search results of the custom search form in the searchform.php file in the theme.    -->
+
+
+
 <?php
 get_header();
 ?>
@@ -90,7 +93,7 @@ if ($search_query->have_posts()) :
         $car_transmission = get_the_terms(get_the_ID(), 'car_transmission');
 
 ?>
-        <div class="container" style="background-image: url('<?php echo get_template_directory_uri(); ?>/assets/images/featured-cars/single-page-wall.jpg'); no-repeat center center fixed; background-size: cover; padding: 10px 0; margin-left :20 px;">
+        <div class="containerr" style="background-image: url('<?php echo get_template_directory_uri(); ?>/assets/images/featured-cars/single-page-wall.jpg'); no-repeat center center fixed; background-size: cover; padding: 10px 0; margin-left :20 px;">
             <div class="single-cars-content">
                 <div class="single-cars-item">
                     <div class="single-single-cars-item">
@@ -98,7 +101,7 @@ if ($search_query->have_posts()) :
                             <div class="col-md-6 col-sm-12 text-center">
                                 <div class="single-cars-img">
                                     <img src="<?php echo esc_url(get_the_post_thumbnail_url()); ?>"
-                                        alt="<?php echo esc_attr(get_the_title()); ?>" class="img-fluid rounded">
+                                        alt="<?php echo esc_attr(get_the_title()); ?>" class="img-fluid roundedd">
                                 </div>
                             </div>
                             <div class="col-md-6 col-sm-12">
@@ -114,7 +117,7 @@ if ($search_query->have_posts()) :
                                     </h2>
                                     <p><?php the_content(); ?></p>
 
-                                    <div class="featured-model-info">
+                                    <div class="featured-model-infoo">
                                         <p>
                                             <strong>Model:</strong> <?php echo ($car_year && !is_wp_error($car_year)) ? esc_html($car_year[0]->name) : 'N/A'; ?>
                                             <span class="featured-mi-span">

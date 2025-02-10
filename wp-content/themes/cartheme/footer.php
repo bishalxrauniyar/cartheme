@@ -7,7 +7,7 @@
                  <div class="col-md-3 col-sm-6">
                      <div class="single-footer-widget">
                          <div class="footer-logo">
-                             <a href="index.html">carvilla</a>
+                             <a href="front-page.php">carvilla</a>
                          </div>
                          <p>
                              Ased do eiusm tempor incidi ut labore et dolore magnaian
@@ -23,12 +23,12 @@
                      <div class="single-footer-widget">
                          <h2>about devloon</h2>
                          <ul>
-                             <li><a href="#">about us</a></li>
-                             <li><a href="#">career</a></li>
+                             <li><a href="http://carstheme.local/#contact">about us</a></li>
+                             <li><a href="#http://carstheme.local/#career">career</a></li>~
                              <li>
-                                 <a href="#">terms <span> of service</span></a>
+                                 <a href="http://carstheme.local/#terms">terms <span> of service</span></a>
                              </li>
-                             <li><a href="#">privacy policy</a></li>
+                             <li><a href="http://carstheme.local/#privacy">privacy policy</a></li>
                          </ul>
                      </div>
                  </div>
@@ -38,22 +38,22 @@
                          <div class="row">
                              <div class="col-md-7 col-xs-6">
                                  <ul>
-                                     <li><a href="#">BMW</a></li>
-                                     <li><a href="#">lamborghini</a></li>
-                                     <li><a href="#">camaro</a></li>
-                                     <li><a href="#">audi</a></li>
-                                     <li><a href="#">infiniti</a></li>
-                                     <li><a href="#">nissan</a></li>
+                                     <li><a href="http://carstheme.local/search/search.php?car_year=&car_type=&car_brand=bmw&car_condition=&car_model=&car_price=">BMW</a></li>
+                                     <li><a href="http://carstheme.local/search/search.php?car_year=&car_type=&car_brand=lamborghini&car_condition=&car_model=&car_price=">lamborghini</a></li>
+                                     <li><a href="http://carstheme.local/search/search.php?car_year=&car_type=&car_brand=camaro&car_condition=&car_model=&car_price=">camaro</a></li>
+                                     <li><a href="http://carstheme.local/search/search.php?car_year=&car_type=&car_brand=audi&car_condition=&car_model=&car_price=">audi</a></li>
+                                     <li><a href="http://carstheme.local/search/search.php?car_year=&car_type=&car_brand=infiniti&car_condition=&car_model=&car_price=">infiniti</a></li>
+                                     <li><a href="http://carstheme.local/search/search.php?car_year=&car_type=&car_brand=nissan&car_condition=&car_model=&car_price=">nissan</a></li>
                                  </ul>
                              </div>
                              <div class="col-md-5 col-xs-6">
                                  <ul>
-                                     <li><a href="#">ferrari</a></li>
-                                     <li><a href="#">porsche</a></li>
-                                     <li><a href="#">land rover</a></li>
-                                     <li><a href="#">aston martin</a></li>
-                                     <li><a href="#">mersedes</a></li>
-                                     <li><a href="#">opel</a></li>
+                                     <li><a href="http://carstheme.local/search/search.php?car_year=&car_type=&car_brand=ferrari&car_condition=&car_model=&car_price=">ferrari</a></li>
+                                     <li><a href="http://carstheme.local/search/search.php?car_year=&car_type=&car_brand=porsche&car_condition=&car_model=&car_price=">porsche</a></li>
+                                     <li><a href="http://carstheme.local/search/search.php?car_year=&car_type=&car_brand=landrover&car_condition=&car_model=&car_price=">land rover</a></li>
+                                     <li><a href="http://carstheme.local/search/search.php?car_year=&car_type=&car_brand=astonmartin&car_condition=&car_model=&car_price=">aston martin</a></li>
+                                     <li><a href="http://carstheme.local/search/search.php?car_year=&car_type=&car_brand=mersedes&car_condition=&car_model=&car_price=">mersedes</a></li>
+                                     <li><a href="http://carstheme.local/search/search.php?car_year=&car_type=&car_brand=opel&car_condition=&car_model=&car_price=">opel</a></li>
                                  </ul>
                              </div>
                          </div>
@@ -89,9 +89,9 @@
                  </div>
                  <div class="col-sm-6">
                      <div class="footer-social">
-                         <a href="#"><i class="fa fa-facebook"></i></a>
-                         <a href="#"><i class="fa fa-instagram"></i></a>
-                         <a href="#"><i class="fa fa-linkedin"></i></a>
+                         <a href="www.facebook.com/bishalxrauniyar"><i class="fa fa-facebook"></i></a>
+                         <a href="www.instagram.com/bishalXrauniyar"><i class="fa fa-instagram"></i></a>
+                         <a href="www.innkedin.com/bishalxrauniyar"><i class="fa fa-linkedin"></i></a>
                          <a href="#"><i class="fa fa-pinterest-p"></i></a>
                          <a href="#"><i class="fa fa-behance"></i></a>
                      </div>
