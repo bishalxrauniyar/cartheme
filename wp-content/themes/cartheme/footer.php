@@ -66,14 +66,9 @@
                          </div>
                          <div class="hm-foot-email">
                              <div class="foot-email-box">
-                                 <input
-                                     type="text"
-                                     class="form-control"
-                                     placeholder="Add Email" />
-                             </div>
-                             <!--/.foot-email-box-->
-                             <div class="foot-email-subscribe">
-                                 <span><i class="fa fa-arrow-right"></i></span>
+
+                                 <?php echo do_shortcode('[mc4wp_form id=132]'); ?>
+                                 <!--/.foot-email-box-->
                              </div>
                              <!--/.foot-email-icon-->
                          </div>

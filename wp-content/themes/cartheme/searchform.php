@@ -11,17 +11,23 @@
                             <div class="single-model-search">
                                 <h2>select year</h2>
                                 <div class="model-select-icon">
-                                    <select name="car_year" class="form-control">
+                                    <select id="car_year" name="car_year" class="form-control">
                                         <option value="">Select Year</option>
                                         <?php
+                                        // Get the selected year from the request (POST or GET)
+                                        $selected = isset($_GET['car_year']) ? $_GET['car_year'] : '';
+
                                         // Fetch all terms from 'car_year' taxonomy
                                         $car_years = get_terms(array('taxonomy' => 'car_year', 'hide_empty' => false));
+
                                         foreach ($car_years as $car_year) {
-                                            echo '<option value="' . esc_attr($car_year->slug) . '">' . esc_html($car_year->name) . '</option>';
+                                            $selected = ($selected == $car_year->slug) ? 'selected' : '';
+                                            echo '<option value="' . esc_attr($car_year->slug) . '" ' . $selected . '>' . esc_html($car_year->name) . '</option>';
                                         }
                                         ?>
                                     </select>
                                 </div>
+
                                 <!-- /.model-select-icon -->
                             </div>
                             <div class="single-model-search">
