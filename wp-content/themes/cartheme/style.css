@@ -126,3 +126,8 @@ body {
   margin-top: 50px;
   z-index: 0;
 }
+
+.btn,
+btn-primary {
+  margin-top: 24px;
+}
