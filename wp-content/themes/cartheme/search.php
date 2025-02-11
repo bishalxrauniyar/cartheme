@@ -142,10 +142,12 @@ if ($search_query->have_posts()) :
 // No results found
 
 else :
+    echo '<br>';
     echo '<div class="noresult"><h1>No cars found</h1></div>';
 endif;
 
 ?>
 <?php
+
 get_footer();
 ?>

@@ -16,14 +16,14 @@
                                         <option value="">Select Year</option>
                                         <?php
                                         // Get the selected year from the request (POST or GET)
-                                        $selected = isset($_GET['car_year']) ? $_GET['car_year'] : '';
+                                        $selected_year = isset($_GET['car_year']) ? $_GET['car_year'] : '';
 
                                         // Fetch all terms from 'car_year' taxonomy
                                         $car_years = get_terms(array('taxonomy' => 'car_year', 'hide_empty' => false));
 
                                         foreach ($car_years as $car_year) {
-                                            $selected = ($selected == $car_year->slug) ? 'selected' : '';
-                                            echo '<option value="' . esc_attr($car_year->slug) . '" ' . $selected . '>' . esc_html($car_year->name) . '</option>'; // Display the year name
+                                            $selected_year = ($selected_year == $car_year->slug) ? 'selected' : '';
+                                            echo '<option value="' . esc_attr($car_year->slug) . '" ' . $selected_year . '>' . esc_html($car_year->name) . '</option>'; // Display the year name
                                         }
                                         ?>
                                     </select>
@@ -37,6 +37,7 @@
                                     <select name="car_type" class="form-control">
                                         <option value="">Select Style</option>
                                         <?php
+                                        $selected_type = isset($_GET['car_type']) ? $_GET['car_type'] : '';
                                         // Fetch all terms from 'car_type' taxonomy
                                         $car_types = get_terms(array(
                                             'taxonomy' => 'car_type',
@@ -45,7 +46,8 @@
 
 
                                         foreach ($car_types as $car_type) {
-                                            echo '<option value="' . esc_attr($car_type->slug) . '">' . esc_html($car_type->name) . '</option>';
+                                            $selected_type = ($selected_type == $car_type->slug) ? 'selected_type' : '';
+                                            echo '<option value="' . esc_attr($car_type->slug) . '"' . $selected_type . '>' . esc_html($car_type->name) . '</option>';
                                         }
                                         ?>
                                     </select>

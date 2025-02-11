@@ -131,15 +131,3 @@ jQuery(document).ready(function ($) {
     owl.trigger("stop.owl.autoplay");
   });
 });
-
-function searchCars() {
-  var car_year = document.getElementsById("car_year");
-  console.log(car_year);
-  document.getElementById("car_year").innerHTML = car_year;
-
-  var car_price = document.getElementById("car_price").innerHTML;
-  var car_type = document.getElementById("car_type").innerHTML;
-  var car_model = document.getElementById("car_model").innerHTML;
-  var cor_condition = document.getElementById("cor_condition").innerHTML;
-  var car_brand = document.getElementById("car_brand").innerHTML;
-}
