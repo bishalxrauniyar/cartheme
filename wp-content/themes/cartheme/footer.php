@@ -89,9 +89,9 @@
                  </div>
                  <div class="col-sm-6">
                      <div class="footer-social">
-                         <a href="www.facebook.com/bishalxrauniyar"><i class="fa fa-facebook"></i></a>
-                         <a href="www.instagram.com/bishalXrauniyar"><i class="fa fa-instagram"></i></a>
-                         <a href="www.innkedin.com/bishalxrauniyar"><i class="fa fa-linkedin"></i></a>
+                         <a href="https://www.facebook.com/bishal.rauniyar"><i class="fa fa-facebook"></i></a>
+                         <a href="https://www.instagram.com/bishalXrauniyar"><i class="fa fa-instagram"></i></a>
+                         <a href="https://www.innkedin.com/bishalxrauniyar"><i class="fa fa-linkedin"></i></a>
                          <a href="#"><i class="fa fa-pinterest-p"></i></a>
                          <a href="#"><i class="fa fa-behance"></i></a>
                      </div>
@@ -119,11 +119,11 @@
  <!--/.contact-->
  <!--contact end-->
 
- <!--modernizr.min.js-->
+ <!-- modernizr.min.js
  <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.3/modernizr.min.js"></script>
 
 
- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.min.js"></script>
+ <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.min.js"></script> -->
 
  <!--Custom JS-->
  <?php wp_footer(); ?>
