@@ -180,8 +180,6 @@ add_action('add_meta_boxes', 'add_featured_car_meta_boxes');
 
 function display_featured_car_meta_box($featured_car)
 {
-    // Retrieve current name of the Director and Movie Rating based on review ID
-
     $car_price = esc_html(get_post_meta($featured_car->ID, 'car_price', true));
     $car_mileage = esc_html(get_post_meta($featured_car->ID, 'car_mileage', true));
     $car_hp = esc_html(get_post_meta($featured_car->ID, 'car_hp', true));
@@ -268,7 +266,6 @@ add_action('add_meta_boxes', 'add_testimonial_meta_boxes');
 
 function display_testimonial_meta_box($testimonial)
 {
-    // Retrieve current name of the Director and Movie Rating based on review ID
 
     $testimonial_country = esc_html(get_post_meta($testimonial->ID, 'testimonial_country', true));
 
@@ -284,6 +281,7 @@ function display_testimonial_meta_box($testimonial)
     </table>
 <?php
 }
+
 
 function save_testimonial_meta_box($testimonial_id, $testimonial)
 {

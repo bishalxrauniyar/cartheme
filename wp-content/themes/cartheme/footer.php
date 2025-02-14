@@ -24,7 +24,7 @@
                          <h2>about devloon</h2>
                          <ul>
                              <li><a href="http://carstheme.local/#contact">about us</a></li>
-                             <li><a href="#http://carstheme.local/#career">career</a></li>~
+                             <li><a href="#http://carstheme.local/#career">career</a></li>
                              <li>
                                  <a href="http://carstheme.local/#terms">terms <span> of service</span></a>
                              </li>
