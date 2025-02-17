@@ -290,4 +290,4 @@ function save_testimonial_meta_box($testimonial_id, $testimonial)
     }
 }
 
-add_action('save_post', 'save_testimonial_meta_box', 10, 2);
+add_action('save_post', 'save_testimonial_meta_box', 10, 2); // 10 is the priority and 2 is the number of arguments
