@@ -23,7 +23,7 @@ get_header();
                     <div class="single-single-cars-item">
                         <div class="row align-items-center"> <!-- Center content -->
                             <div class="col-md-6 col-sm-12 text-center">
-                                <div class="single-cars-img">
+                                <div class="single-cars-img ">
                                     <img src="<?php echo esc_url(get_the_post_thumbnail_url()); ?>"
                                         alt="<?php echo esc_attr(get_the_title()); ?>" class="img-fluid rounded">
                                 </div>
@@ -120,7 +120,6 @@ get_header();
     }
     ?>
 </div>
-
 <?php
 get_footer();
 ?>

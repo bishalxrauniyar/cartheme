@@ -150,7 +150,7 @@ function cbp_display_bar()
     }
 
 ?>
-    <style type="text/css">
+    <style>
         #cbp-bar {
             position: fixed;
             <?php echo $css_position; ?>: 0;
