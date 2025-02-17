@@ -1,4 +1,4 @@
-// single page for the featured cars post type.
+<!-- // single page for the featured cars post type. -->
 <?php
 get_header();
 ?>
