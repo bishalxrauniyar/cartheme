@@ -17,13 +17,14 @@
 if (!defined('ABSPATH')) {
     exit;
 }
-
+//Shortcodes are a way to add dynamic content to your WordPress posts, pages, and widgets. They are a type of WordPress hook that allows you to add custom content to your site using a simple shortcode tag.
+//Shortcodes are enclosed in square brackets, like this: [shortcode]. When WordPress encounters a shortcode in the content of a post or page, it replaces the shortcode with the output of a PHP function defined by the shortcode.
 add_shortcode(
     'message',
     'sp_display_message'
 
 );
-function sp_display_message()
+function sp_display_message() //This function will return a simple message when the [message] shortcode is used in a post or page.
 {
     return 'Hello, World! This is a custom shortcode message.';
 }
