@@ -82,7 +82,7 @@
              <div class="row">
                  <div class="col-sm-6">
                      <p>
-                         &copy; copyright.designed and developed by
+                         &copy;<?php do_shortcode('[message]'); ?> copyright.designed and developed by
                          <a href="https://www.themesine.com/">themesine</a>.
                      </p>
                      <!--/p-->
