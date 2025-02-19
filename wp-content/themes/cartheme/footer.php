@@ -11,7 +11,7 @@
                          </div>
                          <p>
                              Ased do eiusm tempor incidi ut labore et dolore magnaian
-                             aliqua. Ut enim ad minim veniam.
+                             aliqua. <?php echo do_shortcode('[message]'); ?>Ut enim ad minim veniam.
                          </p>
                          <div class="footer-contact">
                              <p>info@themesine.com</p>

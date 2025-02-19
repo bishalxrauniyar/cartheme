@@ -26,5 +26,5 @@ add_shortcode(
 );
 function sp_display_message() //This function will return a simple message when the [message] shortcode is used in a post or page.
 {
-    return 'Hello, World! This is a custom shortcode message.';
+    return '<p style="color: red;">Hello, World! This is a custom shortcode message.</p>'; //use the return statement to return the message. echo will not work here as it will output the message directly to the page instead of returning it.
 }
