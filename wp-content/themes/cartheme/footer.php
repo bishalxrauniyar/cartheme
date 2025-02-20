@@ -21,7 +21,7 @@
                  </div>
                  <div class="col-md-2 col-sm-6">
                      <div class="single-footer-widget">
-                         <h2>about devloon</h2>
+                         <h2><?php echo do_shortcode('[greeting name="Carz"]') ?>about devloon</h2>
                          <ul>
                              <li><a href="http://carstheme.local/#contact">about us</a></li>
                              <li><a href="#http://carstheme.local/#career">career</a></li>
@@ -82,8 +82,7 @@
              <div class="row">
                  <div class="col-sm-6">
                      <p>
-                         &copy;<?php echo do_shortcode('[message]'); ?> copyright.designed and developed by
-                         <a href="https://www.themesine.com/">themesine</a>.
+                         &copy;<?php echo do_shortcode('[message]'); ?><?php echo do_shortcode('[copyright]') ?></a>.
                      </p>
                      <!--/p-->
                  </div>

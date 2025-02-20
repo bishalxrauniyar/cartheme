@@ -28,3 +28,41 @@ function sp_display_message() //This function will return a simple message when 
 {
     return '<p style="color: red;">Hello, World! This is a custom shortcode message.</p>'; //use the return statement to return the message. echo will not work here as it will output the message directly to the page instead of returning it.
 }
+
+
+// parameterized shortcode
+add_shortcode(
+    'greeting',
+    'sp_display_greeting'
+);
+function sp_display_greeting($atts) //This function will display a custom greeting message based on the attributes passed to the [greeting] shortcode.
+{
+    $atts = shortcode_atts(
+        array(
+            'name' => 'Guest',
+        ),
+        $atts,
+        'greeting'
+    );
+    return '<p style="color: aqua;">Hello, ' . esc_html($atts['name']) . '! Welcome to our site.</p>';
+}
+
+// copyright shortcode
+add_shortcode(
+    'copyright',
+    'sp_display_copyright'
+);
+function sp_display_copyright()
+{
+    return '<p style="color: green;">&copy;' . date('Y') . ' All rights reserved. Designed and developed by <a href="https://www.themesine.com/">themesine</a>.</p>';
+}
+
+//shortcode for db operation
+add_shortcode(
+    'db_operation',
+    'sp_db_operation'
+);
+function sp_db_operation()
+{
+    global $wpdb;
+};
