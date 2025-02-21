@@ -7,6 +7,9 @@ Author: mrb
 
 */
 // Admin Settings
+
+use WpOrg\Requests\Session;
+
 add_action('admin_menu', 'custom_bar_add_admin_menu');
 add_action('admin_init', 'custom_bar_settings_init');
 // add_action('admin_enqueue_scripts', 'custom_bar_admin_scripts');
@@ -225,12 +228,29 @@ function custom_bar_display()
 
 add_action('wp_footer', 'custom_bar_dismiss_script');
 
+
+add_action('init', 'custom_bar_start_session', 1);
+function custom_bar_start_session()
+{
+    if (!session_id()) {
+        session_start();
+    }
+}
+
+
 function custom_bar_dismiss_script()
 {
     $options = get_option('custom_bar_options');
     $force_enable = !empty($options['force_enable']);
 
+
+
     if (!$force_enable) {
+        session_start();
+        $_SESSION['start'] = time(); // Set the session start time
+        $_SESSION['enable'] = $options['enable'];
+
+
     ?>
         <script>
             document.addEventListener('DOMContentLoaded', function() {
@@ -243,8 +263,10 @@ function custom_bar_dismiss_script()
             });
         </script>
 <?php
-        $options = get_option('custom_bar_options');
+
         $options['enable'] = 0;
         update_option('custom_bar_options', $options);
+        $_SESSION['expire'] = $_SESSION['start'] + (1 * 60); // Set the script execution time to 1 minute
+        session_destroy(); // Destroy the current session
     }
 }
