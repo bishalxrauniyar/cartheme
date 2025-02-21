@@ -67,6 +67,15 @@ function custom_bar_settings_init()
     );
 
     add_settings_field(
+        'force_enable',
+        'Force Enable Custom Bar',
+        'custom_bar_force_enable_cb',
+        'custom-bar-settings',
+        'custom_bar_main_section'
+    );
+
+
+    add_settings_field(
         'location',
         'Bar Location',
         'custom_bar_location_cb',
@@ -118,6 +127,13 @@ function custom_bar_enable_cb()
     echo '<input type="checkbox" name="custom_bar_options[enable]" value="1" ' . checked(1, $options['enable'] ?? 0, false) . ' />';
 }
 
+function custom_bar_force_enable_cb()
+{
+    $options = get_option('custom_bar_options');
+    echo '<input type="checkbox" name="custom_bar_options[force_enable]" value="1" ' . checked(1, $options['force_enable'] ?? 0, false) . ' />';
+}
+
+
 function custom_bar_location_cb()
 {
     $options = get_option('custom_bar_options');
@@ -126,7 +142,7 @@ function custom_bar_location_cb()
         <option value="header" <?php selected($options['location'] ?? 'header', 'header'); ?>>Header</option>
         <option value="footer" <?php selected($options['location'] ?? 'header', 'footer'); ?>>Footer</option>
     </select>
-<?php
+    <?php
 }
 
 function custom_bar_bg_color_cb()
@@ -157,6 +173,7 @@ function custom_bar_sanitize_options($input)
 {
     return [
         'enable' => isset($input['enable']) ? 1 : 0,
+        'force_enable' => isset($input['force_enable']) ? 1 : 0,
         'location' => in_array($input['location'] ?? 'header', ['header', 'footer']) ? $input['location'] : 'header',
         'bg_color' => sanitize_hex_color($input['bg_color'] ?? '#ffffff'),
         'text_color' => sanitize_hex_color($input['text_color'] ?? '#000000'),
@@ -175,7 +192,12 @@ function custom_bar_sanitize_options($input)
 function custom_bar_display()
 {
     $options = get_option('custom_bar_options');
-    if (empty($options['enable']) || empty($options['message'])) return;
+
+    // Force Enable overrides Enable setting
+    $force_enable = !empty($options['force_enable']);
+    $enabled = !empty($options['enable']) || $force_enable;
+
+    if (!$enabled || empty($options['message'])) return;
 
     $styles = [
         'position: fixed',
@@ -192,24 +214,37 @@ function custom_bar_display()
 
     echo '<div class="custom-bar" style="' . esc_attr(implode('; ', $styles)) . '">';
     echo '<span>' . esc_html($options['message']) . '</span>';
-    echo '<button class="custom-bar-dismiss" style="margin-left: 20px; float:right; color:red; font-size:large; font-weight:bold;">X</button>';
+
+    // Show dismiss button only if Force Enable is OFF
+    if (!$force_enable) {
+        echo '<button class="custom-bar-dismiss" style="margin-left: 20px; float:right; color:red; font-size:large; font-weight:bold;">X</button>';
+    }
+
     echo '</div>';
 }
 
-add_action('wp_footer', 'custom_bar_dismiss');
+add_action('wp_footer', 'custom_bar_dismiss_script');
 
-function custom_bar_dismiss()
+function custom_bar_dismiss_script()
 {
-?>
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            document.querySelector('.custom-bar-dismiss').addEventListener('click', function() {
-                document.querySelector('.custom-bar').style.display = 'none';
-            });
-        });
-    </script>
-<?php
     $options = get_option('custom_bar_options');
-    $options['enable'] = 0;
-    update_option('custom_bar_options', $options);
+    $force_enable = !empty($options['force_enable']);
+
+    if (!$force_enable) {
+    ?>
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                const dismissButton = document.querySelector('.custom-bar-dismiss');
+                if (dismissButton) {
+                    dismissButton.addEventListener('click', function() {
+                        document.querySelector('.custom-bar').style.display = 'none';
+                    });
+                }
+            });
+        </script>
+<?php
+        $options = get_option('custom_bar_options');
+        $options['enable'] = 0;
+        update_option('custom_bar_options', $options);
+    }
 }
