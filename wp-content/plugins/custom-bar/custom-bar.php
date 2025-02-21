@@ -6,27 +6,28 @@ Version: 1.0
 Author: mrb
 
 */
-
 // Admin Settings
 add_action('admin_menu', 'custom_bar_add_admin_menu');
 add_action('admin_init', 'custom_bar_settings_init');
-add_action('admin_enqueue_scripts', 'custom_bar_admin_scripts');
+// add_action('admin_enqueue_scripts', 'custom_bar_admin_scripts');
 
 // Frontend Display
 add_action('wp_footer', 'custom_bar_display');
 
 function custom_bar_add_admin_menu()
 {
-    add_options_page(
-        'Custom Bar Settings',
-        'Custom Bar',
-        'manage_options',
-        'custom-bar-settings',
-        'custom_bar_settings_page'
+    add_menu_page(
+        'Custom Bar Settings', // Page title
+        'Custom Bar',          // Menu title
+        'manage_options',      // Capability
+        'custom-bar-settings', // Menu slug
+        'custom_bar_settings_page', // Function to display the settings page
+        'dashicons-admin-generic',  // Icon URL (Dashicon class)
+        80                      // Position in the menu
     );
 }
 
-function custom_bar_settings_page()
+function custom_bar_settings_page() // Display the settings page
 {
 ?>
     <div class="wrap">
@@ -131,13 +132,13 @@ function custom_bar_location_cb()
 function custom_bar_bg_color_cb()
 {
     $options = get_option('custom_bar_options');
-    echo '<input type="text" name="custom_bar_options[bg_color]" value="' . esc_attr($options['bg_color'] ?? '#ffffff') . '" class="custom-bar-color-picker" />';
+    echo '<input type="color" name="custom_bar_options[bg_color]" value="' . esc_attr($options['bg_color'] ?? '#ffffff') . '" class="custom-bar-color-picker" />';
 }
 
 function custom_bar_text_color_cb()
 {
     $options = get_option('custom_bar_options');
-    echo '<input type="text" name="custom_bar_options[text_color]" value="' . esc_attr($options['text_color'] ?? '#000000') . '" class="custom-bar-color-picker" />';
+    echo '<input type="color" name="custom_bar_options[text_color]" value="' . esc_attr($options['text_color'] ?? '#000000') . '" class="custom-bar-color-picker" />';
 }
 
 function custom_bar_font_size_cb()
@@ -164,12 +165,12 @@ function custom_bar_sanitize_options($input)
     ];
 }
 
-function custom_bar_admin_scripts($hook)
-{
-    if ('settings_page_custom-bar-settings' !== $hook) return;
-    wp_enqueue_style('wp-color-picker');
-    wp_enqueue_script('custom-bar-admin', plugins_url('admin.js', __FILE__), ['wp-color-picker'], false, true);
-}
+// function custom_bar_admin_scripts($hook)
+// {
+//     if ('settings_page_custom-bar-settings' !== $hook) return;
+//     wp_enqueue_style('wp-color-picker');
+//     wp_enqueue_script('custom-bar-admin', plugins_url('admin.js', __FILE__), ['wp-color-picker'], false, true);
+// }
 
 function custom_bar_display()
 {
@@ -189,5 +190,26 @@ function custom_bar_display()
         'font-size: ' . ($options['font_size'] ?? 14) . 'px'
     ];
 
-    echo '<div class="custom-bar" style="' . esc_attr(implode('; ', $styles)) . '">' . esc_html($options['message']) . '</div>';
+    echo '<div class="custom-bar" style="' . esc_attr(implode('; ', $styles)) . '">';
+    echo '<span>' . esc_html($options['message']) . '</span>';
+    echo '<button class="custom-bar-dismiss" style="margin-left: 20px; float:right; color:red; font-size:large; font-weight:bold;">X</button>';
+    echo '</div>';
+}
+
+add_action('wp_footer', 'custom_bar_dismiss');
+
+function custom_bar_dismiss()
+{
+?>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            document.querySelector('.custom-bar-dismiss').addEventListener('click', function() {
+                document.querySelector('.custom-bar').style.display = 'none';
+            });
+        });
+    </script>
+<?php
+    $options = get_option('custom_bar_options');
+    $options['enable'] = 0;
+    update_option('custom_bar_options', $options);
 }

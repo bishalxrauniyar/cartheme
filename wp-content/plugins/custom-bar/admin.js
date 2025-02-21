@@ -1,3 +1,3 @@
-jQuery(function ($) {
-  $(".custom-bar-color-picker").wpColorPicker();
-});
+// jQuery(function ($) {
+//   $(".custom-bar-color-picker").wpColorPicker();
+// });
