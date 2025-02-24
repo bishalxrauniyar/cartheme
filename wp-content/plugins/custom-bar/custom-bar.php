@@ -4,14 +4,12 @@ Plugin Name: Custom Bar
 Description: Displays a customizable bar in the header or footer with global message.
 Version: 1.0
 Author: mrb
-
 */
 // Admin Settings
 
-use WpOrg\Requests\Session;
 
-add_action('admin_menu', 'custom_bar_add_admin_menu');
-add_action('admin_init', 'custom_bar_settings_init');
+
+
 // add_action('admin_enqueue_scripts', 'custom_bar_admin_scripts');
 
 // Frontend Display
@@ -29,6 +27,7 @@ function custom_bar_add_admin_menu()
         80                      // Position in the menu
     );
 }
+add_action('admin_menu', 'custom_bar_add_admin_menu');
 
 function custom_bar_settings_page() // Display the settings page
 {
@@ -119,6 +118,9 @@ function custom_bar_settings_init()
     );
 }
 
+add_action('admin_init', 'custom_bar_settings_init');
+
+//
 function custom_bar_main_section_cb()
 {
     echo '<p>Configure your custom bar settings.</p>';
@@ -185,12 +187,6 @@ function custom_bar_sanitize_options($input)
     ];
 }
 
-// function custom_bar_admin_scripts($hook)
-// {
-//     if ('settings_page_custom-bar-settings' !== $hook) return;
-//     wp_enqueue_style('wp-color-picker');
-//     wp_enqueue_script('custom-bar-admin', plugins_url('admin.js', __FILE__), ['wp-color-picker'], false, true);
-// }
 
 function custom_bar_display()
 {
@@ -229,15 +225,6 @@ function custom_bar_display()
 add_action('wp_footer', 'custom_bar_dismiss_script');
 
 
-add_action('init', 'custom_bar_start_session', 1);
-function custom_bar_start_session()
-{
-    if (!session_id()) {
-        session_start();
-    }
-}
-
-
 function custom_bar_dismiss_script()
 {
     $options = get_option('custom_bar_options');
@@ -246,9 +233,7 @@ function custom_bar_dismiss_script()
 
 
     if (!$force_enable) {
-        session_start();
-        $_SESSION['start'] = time(); // Set the session start time
-        $_SESSION['enable'] = $options['enable'];
+
 
 
     ?>
@@ -266,7 +251,5 @@ function custom_bar_dismiss_script()
 
         $options['enable'] = 0;
         update_option('custom_bar_options', $options);
-        $_SESSION['expire'] = $_SESSION['start'] + (1 * 60); // Set the script execution time to 1 minute
-        session_destroy(); // Destroy the current session
     }
 }
