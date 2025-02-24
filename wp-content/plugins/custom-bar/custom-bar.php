@@ -2,19 +2,11 @@
 /*
 Plugin Name: Custom Bar
 Description: Displays a customizable bar in the header or footer with global message.
-Version: 1.0
+Version: 1.1
 Author: mrb
 */
+
 // Admin Settings
-
-
-
-
-// add_action('admin_enqueue_scripts', 'custom_bar_admin_scripts');
-
-// Frontend Display
-add_action('wp_footer', 'custom_bar_display');
-
 function custom_bar_add_admin_menu()
 {
     add_menu_page(
@@ -29,7 +21,7 @@ function custom_bar_add_admin_menu()
 }
 add_action('admin_menu', 'custom_bar_add_admin_menu');
 
-function custom_bar_settings_page() // Display the settings page
+function custom_bar_settings_page()
 {
 ?>
     <div class="wrap">
@@ -76,7 +68,6 @@ function custom_bar_settings_init()
         'custom_bar_main_section'
     );
 
-
     add_settings_field(
         'location',
         'Bar Location',
@@ -117,10 +108,8 @@ function custom_bar_settings_init()
         'custom_bar_main_section'
     );
 }
-
 add_action('admin_init', 'custom_bar_settings_init');
 
-//
 function custom_bar_main_section_cb()
 {
     echo '<p>Configure your custom bar settings.</p>';
@@ -137,7 +126,6 @@ function custom_bar_force_enable_cb()
     $options = get_option('custom_bar_options');
     echo '<input type="checkbox" name="custom_bar_options[force_enable]" value="1" ' . checked(1, $options['force_enable'] ?? 0, false) . ' />';
 }
-
 
 function custom_bar_location_cb()
 {
@@ -187,7 +175,7 @@ function custom_bar_sanitize_options($input)
     ];
 }
 
-
+// Frontend Display
 function custom_bar_display()
 {
     $options = get_option('custom_bar_options');
@@ -211,7 +199,11 @@ function custom_bar_display()
         'font-size: ' . ($options['font_size'] ?? 14) . 'px'
     ];
 
-    echo '<div class="custom-bar" style="' . esc_attr(implode('; ', $styles)) . '">';
+    // Add display:none if there's a valid session
+    $display_style = isset($_COOKIE['custom_bar_dismissed']) ? 'display: none;' : '';
+    $styles[] = $display_style;
+
+    echo '<div id="custom-bar" class="custom-bar" style="' . esc_attr(implode('; ', $styles)) . '">';
     echo '<span>' . esc_html($options['message']) . '</span>';
 
     // Show dismiss button only if Force Enable is OFF
@@ -221,35 +213,54 @@ function custom_bar_display()
 
     echo '</div>';
 }
-
-add_action('wp_footer', 'custom_bar_dismiss_script');
-
+add_action('wp_footer', 'custom_bar_display');
 
 function custom_bar_dismiss_script()
 {
     $options = get_option('custom_bar_options');
     $force_enable = !empty($options['force_enable']);
 
-
-
     if (!$force_enable) {
-
-
-
     ?>
         <script>
             document.addEventListener('DOMContentLoaded', function() {
                 const dismissButton = document.querySelector('.custom-bar-dismiss');
+                const customBar = document.getElementById('custom-bar');
+
+                // Check if there's an existing session
+                function checkSession() {
+                    const dismissed = document.cookie.split(';').some((item) => item.trim().startsWith('custom_bar_dismissed='));
+                    if (dismissed) {
+                        customBar.style.display = 'none';
+                    } else {
+                        customBar.style.display = 'block';
+                    }
+                }
+
+                // Run initial check
+                checkSession();
+
                 if (dismissButton) {
                     dismissButton.addEventListener('click', function() {
-                        document.querySelector('.custom-bar').style.display = 'none';
+                        // Hide the bar
+                        customBar.style.display = 'none';
+
+                        // Set cookie to expire in 1 minute
+                        const date = new Date();
+                        date.setTime(date.getTime() + (60 * 1000)); // 60 seconds * 1000 milliseconds
+                        document.cookie = "custom_bar_dismissed=1; expires=" + date.toUTCString() + "; path=/";
+
+                        // Set timeout to show the bar again after 1 minute
+                        setTimeout(function() {
+                            customBar.style.display = 'block';
+                            // Remove the cookie
+                            document.cookie = "custom_bar_dismissed=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/";
+                        }, 60000); // 60000 milliseconds = 1 minute
                     });
                 }
             });
         </script>
 <?php
-
-        $options['enable'] = 0;
-        update_option('custom_bar_options', $options);
     }
 }
+add_action('wp_footer', 'custom_bar_dismiss_script');
