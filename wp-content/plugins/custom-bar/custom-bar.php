@@ -264,3 +264,5 @@ function custom_bar_dismiss_script()
     }
 }
 add_action('wp_footer', 'custom_bar_dismiss_script');
+
+//ensures that the custom bar is displayed on the website and can be dismissed by the user. The bar will reappear after 1 minute if dismissed, providing a temporary hiding mechanism. The use of cookies allows the plugin to remember the user's action across page loads.
