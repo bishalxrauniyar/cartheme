@@ -2,11 +2,19 @@
 /*
 Plugin Name: Custom Bar
 Description: Displays a customizable bar in the header or footer with global message.
-Version: 1.1
+Version: 1.0
 Author: mrb
+
 */
 
-// Admin Settings
+// Start the session
+if (!session_id()) {
+    session_start();
+}
+
+// Frontend Display
+add_action('wp_footer', 'custom_bar_display');
+
 function custom_bar_add_admin_menu()
 {
     add_menu_page(
@@ -21,7 +29,7 @@ function custom_bar_add_admin_menu()
 }
 add_action('admin_menu', 'custom_bar_add_admin_menu');
 
-function custom_bar_settings_page()
+function custom_bar_settings_page() // Display the settings page
 {
 ?>
     <div class="wrap">
@@ -107,7 +115,23 @@ function custom_bar_settings_init()
         'custom-bar-settings',
         'custom_bar_main_section'
     );
+
+    add_settings_field(
+        'message_for_each_post',
+        'Message for Each Post',
+        'custom_message_for_each_post_admin',
+        'custom-bar-settings',
+        'custom_bar_main_section'
+    );
+    add_settings_field(
+        'message_for_each_post',
+        'Message for Each Post',
+        'custom_message_for_each_post_admin',
+        'custom-bar-settings',
+        'custom_bar_main_section'
+    );
 }
+
 add_action('admin_init', 'custom_bar_settings_init');
 
 function custom_bar_main_section_cb()
@@ -175,7 +199,6 @@ function custom_bar_sanitize_options($input)
     ];
 }
 
-// Frontend Display
 function custom_bar_display()
 {
     $options = get_option('custom_bar_options');
@@ -184,7 +207,28 @@ function custom_bar_display()
     $force_enable = !empty($options['force_enable']);
     $enabled = !empty($options['enable']) || $force_enable;
 
-    if (!$enabled || empty($options['message'])) return;
+    if (!$enabled) {
+        return;
+    }
+
+    if (isset($_SESSION['custom_bar_dismissed']) && $_SESSION['custom_bar_dismissed'] && !$force_enable) {
+        return;
+    }
+
+    $message = $options['message'] ?? '';
+
+    // Fetch custom message from post meta if available
+    if (is_singular(['post', 'page'])) {
+        global $post;
+        $custom_message = get_post_meta($post->ID, '_custom_bar_message', true);
+        if (!empty($custom_message)) {
+            $message = $custom_message; // Override global message
+        }
+    }
+
+    if (empty($message)) {
+        return;
+    }
 
     $styles = [
         'position: fixed',
@@ -199,21 +243,18 @@ function custom_bar_display()
         'font-size: ' . ($options['font_size'] ?? 14) . 'px'
     ];
 
-    // Add display:none if there's a valid session
-    $display_style = isset($_COOKIE['custom_bar_dismissed']) ? 'display: none;' : '';
-    $styles[] = $display_style;
+    echo '<div class="custom-bar" style="' . esc_attr(implode('; ', $styles)) . '">';
+    echo '<span>' . esc_html($message) . '</span>';
 
-    echo '<div id="custom-bar" class="custom-bar" style="' . esc_attr(implode('; ', $styles)) . '">';
-    echo '<span>' . esc_html($options['message']) . '</span>';
-
-    // Show dismiss button only if Force Enable is OFF
     if (!$force_enable) {
         echo '<button class="custom-bar-dismiss" style="margin-left: 20px; float:right; color:red; font-size:large; font-weight:bold;">X</button>';
     }
 
     echo '</div>';
 }
-add_action('wp_footer', 'custom_bar_display');
+
+
+add_action('wp_footer', 'custom_bar_dismiss_script');
 
 function custom_bar_dismiss_script()
 {
@@ -225,37 +266,16 @@ function custom_bar_dismiss_script()
         <script>
             document.addEventListener('DOMContentLoaded', function() {
                 const dismissButton = document.querySelector('.custom-bar-dismiss');
-                const customBar = document.getElementById('custom-bar');
-
-                // Check if there's an existing session
-                function checkSession() {
-                    const dismissed = document.cookie.split(';').some((item) => item.trim().startsWith('custom_bar_dismissed='));
-                    if (dismissed) {
-                        customBar.style.display = 'none';
-                    } else {
-                        customBar.style.display = 'block';
-                    }
-                }
-
-                // Run initial check
-                checkSession();
-
                 if (dismissButton) {
                     dismissButton.addEventListener('click', function() {
-                        // Hide the bar
-                        customBar.style.display = 'none';
-
-                        // Set cookie to expire in 1 minute
-                        const date = new Date();
-                        date.setTime(date.getTime() + (60 * 1000)); // 60 seconds * 1000 milliseconds
-                        document.cookie = "custom_bar_dismissed=1; expires=" + date.toUTCString() + "; path=/";
-
-                        // Set timeout to show the bar again after 1 minute
-                        setTimeout(function() {
-                            customBar.style.display = 'block';
-                            // Remove the cookie
-                            document.cookie = "custom_bar_dismissed=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/";
-                        }, 60000); // 60000 milliseconds = 1 minute
+                        document.querySelector('.custom-bar').style.display = 'none';
+                        fetch('<?php echo admin_url('admin-ajax.php'); ?>', {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/x-www-form-urlencoded',
+                            },
+                            body: 'action=dismiss_custom_bar'
+                        });
                     });
                 }
             });
@@ -263,6 +283,64 @@ function custom_bar_dismiss_script()
 <?php
     }
 }
-add_action('wp_footer', 'custom_bar_dismiss_script');
 
-//ensures that the custom bar is displayed on the website and can be dismissed by the user. The bar will reappear after 1 minute if dismissed, providing a temporary hiding mechanism. The use of cookies allows the plugin to remember the user's action across page loads.
+add_action('wp_ajax_dismiss_custom_bar', 'custom_bar_dismiss');
+add_action('wp_ajax_nopriv_dismiss_custom_bar', 'custom_bar_dismiss');
+
+function custom_bar_dismiss()
+{
+    $_SESSION['custom_bar_dismissed'] = true;
+    wp_die();
+}
+
+
+##custom bar massage for each post.
+// Add meta box to post editor
+function custom_bar_add_meta_box()
+{
+    add_meta_box(
+        'custom_bar_meta_box',
+        'Custom Bar Message',
+        'custom_bar_meta_box_callback',
+        ['post', 'page'], // Show in posts and pages
+        'normal',
+        'high'
+    );
+}
+add_action('add_meta_boxes', 'custom_bar_add_meta_box');
+
+function custom_bar_meta_box_callback($post)
+{
+    $message = get_post_meta($post->ID, '_custom_bar_message', true);
+    wp_nonce_field('custom_bar_save_meta_box_data', 'custom_bar_meta_box_nonce');
+    echo '<textarea name="custom_bar_message" rows="5" cols="50">' . esc_textarea($message) . '</textarea>';
+}
+
+// Add meta box to post editor
+function custom_bar_save_meta_box_data($post_id)
+{
+    if (!isset($_POST['custom_bar_meta_box_nonce']) || !wp_verify_nonce($_POST['custom_bar_meta_box_nonce'], 'custom_bar_save_meta_box_data')) {
+        return;
+    }
+
+    if (defined('DOING_AUTOSAVE') && DOING_AUTOSAVE) {
+        return;
+    }
+
+    if (!current_user_can('edit_post', $post_id)) {
+        return;
+    }
+
+    if (isset($_POST['custom_bar_message'])) {
+        update_post_meta($post_id, '_custom_bar_message', sanitize_text_field($_POST['custom_bar_message']));
+    } else {
+        delete_post_meta($post_id, '_custom_bar_message');
+    }
+}
+add_action('save_post', 'custom_bar_save_meta_box_data');
+
+// Display a message in the settings page in custom-bar settings
+function custom_message_for_each_post_admin()
+{
+    echo '<p>Each post/page can have a unique custom bar message set in the post editor.</p>';
+}
